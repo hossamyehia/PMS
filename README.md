@@ -28,7 +28,13 @@
 │   └── dashboard
 │       └── subModules
 │           ├── manager
+│           │   ├── models
+│           │   ├── services
+│           │   └── components
 │           └── employee
+│               ├── models
+│               ├── services
+│               └── components
 ├── shared
 │   └── components
 └── README.md
