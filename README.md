@@ -14,13 +14,13 @@
 
 ## For Each Task
 - Create New Branch by task name
-```bash git branch -b [task name] ```
+``` git branch -b [task name] ```
 - Stage Changes
-```bash git add . ```
+``` git add . ```
 - Commit Changes
-```bash git commit -m "msg" ```
+``` git commit -m "msg" ```
 - Pull Request to Remote
-```bash git push origin [branch name] ```
+``` git push origin [branch name] ```
 
 > keep in mind commiting with understandable message
 
