@@ -47,10 +47,6 @@
     - Reset
 - Auth Service
 - Auth Models
-    - iForget
-    - iLogin
-    - iReset
-    - iVerify
 
 ### Dashboard Module
 
