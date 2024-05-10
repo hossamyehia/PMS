@@ -30,11 +30,11 @@
 │           ├── manager
 │           │   ├── models
 │           │   ├── services
-│           │   └── components
+│           │   └── subModules
 │           └── employee
 │               ├── models
 │               ├── services
-│               └── components
+│               └── subModules
 ├── shared
 │   └── components
 └── README.md
