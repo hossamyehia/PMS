@@ -28,13 +28,12 @@
 │   └── dashboard
 │       └── subModules
 │           ├── manager
-│           │   ├── models
-│           │   ├── services
-│           │   └── subModules
+│           │   ├── Users
+│           │   ├── managerProjects
+│           │   └── managerTasks
 │           └── employee
-│               ├── models
-│               ├── services
-│               └── subModules
+│               ├── employeeProjects
+│               └── employeeTasks
 ├── shared
 │   └── components
 └── README.md
