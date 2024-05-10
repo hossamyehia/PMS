@@ -13,7 +13,7 @@
 
 # Architecture
 
-## Folders Structures
+### Folders Structures
 
 ```bash
 .
