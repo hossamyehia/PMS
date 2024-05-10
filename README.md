@@ -1,6 +1,6 @@
 # Tasks
 
-## Part 1
+### Part 1
 - [ ] Login Page
 - [ ] Register Page
 - [ ] Verify Page
