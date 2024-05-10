@@ -1,19 +1,30 @@
-# Tasks
-
-### Part 1
-- [ ] Login Page
-- [ ] Register Page
-- [ ] Verify Page
-- [ ] Request Reset Page
-- [ ] Reset Page
-
-
 # Notes
 
+## Installation
 
+1. Clone Repo
 
+```bash git clone https://github.com/hossamyehia/PMS.git ```
 
+2. install Dependencies
 
+```bash npm install ```
+
+---
+
+## For Each Task
+- Create New Branch by task name
+```bash git branch -b [task name] ```
+- Stage Changes
+```bash git add . ```
+- Commit Changes
+```bash git commit -m "msg" ```
+- Pull Request to Remote
+```bash git push origin [branch name] ```
+
+> keep in mind commiting with understandable message
+
+---
 
 # Architecture
 
@@ -54,8 +65,8 @@ Contain Dashboard Sub-Modules
 - Project Module
 - Tasks Module
 
-
-#### Folders Structures
+---
+# Folders Structures
 
 ```bash
 .
