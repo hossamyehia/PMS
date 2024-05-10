@@ -4,11 +4,11 @@
 
 1. Clone Repo
 
-```bash git clone https://github.com/hossamyehia/PMS.git ```
+``` git clone https://github.com/hossamyehia/PMS.git ```
 
 2. install Dependencies
 
-```bash npm install ```
+``` npm install ```
 
 ---
 
