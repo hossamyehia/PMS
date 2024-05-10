@@ -1,7 +1,11 @@
 # Tasks
 
-
-
+## Part 1
+- [ ] Login Page
+- [ ] Register Page
+- [ ] Verify Page
+- [ ] Request Reset Page
+- [ ] Reset Page
 
 
 # Notes
