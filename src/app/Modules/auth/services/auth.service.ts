@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { iForget, iLogin, iReset } from '../models';
-import { iVerify } from '../models/iVerify.model';
+import { iForget, iLogin, iReset, iVerify } from '../models';
 
 @Injectable({
   providedIn: 'root'
