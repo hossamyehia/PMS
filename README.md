@@ -21,9 +21,7 @@
 - Shared Components
 - Shared Modules
 
-## Modules Folder
-
-Contain Site Major Modules:
+## Major Modules
 
 ### Auth Module
 - Auth Components
