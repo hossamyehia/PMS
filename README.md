@@ -22,6 +22,9 @@
 │   └── interceptors
 ├── Modules
 │   ├── auth
+│   │   ├── models
+│   │   ├── services
+│   │   └── components
 │   └── dashboard
 │       └── subModules
 │           ├── manager
