@@ -1,63 +1,67 @@
-<section class="auth">
-  <div class="container">
-    <div class="row vh-100 align-items-center">
-      <div class="col-md-8 mx-auto">
+<section>
+  <p>welcome to PMS</p>
+  <h2>Verify Account</h2>
 
-        <div class="text-center mb-3">
-          <img src="../../../../../assets/images/logo.svg" alt>
-        </div>
-        <div class="auth-card p-5">
-          <p>welcome to PMS</p>
-          <h2>Verify Account</h2>
-
-          <form [formGroup]="verifyForm" (ngSubmit)="sendVerifyForm()">
-            <div>
-              <mat-form-field appearance="fill" class="w-100">
-                <mat-label>E-mail</mat-label>
-                <input formControlName="email" matInput
-                  placeholder="Enter Your Email">
-              </mat-form-field>
-            </div>
-            <span class="errors"
-              *ngIf="verifyForm.get('email')?.errors&&verifyForm.get('email')?.touched">
-              <span *ngIf="verifyForm.get('email')?.getError('required')">*
-                Email is Requierd</span>
-              <span *ngIf="verifyForm.get('email')?.getError('email')">*Please
-                Enter A Valid Email</span>
-            </span>
-            <span *ngIf="verifyForm.get('email')?.valid">
-              <span class="valid">
-                <i class="fa fa-check me-3" aria-hidden="true"></i>
-                Valid Email</span>
-            </span>
-            <div>
-              <mat-form-field class="w-100">
-                <mat-label>OTP Verification</mat-label>
-                <input formControlName="code" matInput type='text'
-                  placeholder="Enter Verification ">
-
-              </mat-form-field>
-            </div>
-            <span class="errors"
-              *ngIf="verifyForm.get('code')?.errors&&verifyForm.get('code')?.touched">
-              <span *ngIf="verifyForm.get('code')?.getError('required')">* OTP
-                is Requierd</span>
-            </span>
-            <span *ngIf="verifyForm.get('code')?.valid">
-              <span class="valid">
-                <i class="fa fa-check me-3" aria-hidden="true"></i>
-                Valid OTP </span>
-            </span>
-
-            <div class="text-center">
-              <button [disabled]="verifyForm.invalid"
-                class="main-btn w-100 mt-4">Save</button>
-            </div>
-          </form>
-
-        </div>
-
-      </div>
+  <form [formGroup]="verifyForm" (ngSubmit)="sendVerifyForm()">
+    <div>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>E-mail</mat-label>
+        <input
+          formControlName="email"
+          matInput
+          placeholder="Enter Your Email"
+        />
+      </mat-form-field>
     </div>
-  </div>
+    <span
+      class="errors"
+      *ngIf="
+        verifyForm.get('email')?.errors && verifyForm.get('email')?.touched
+      "
+    >
+      <span *ngIf="verifyForm.get('email')?.getError('required')"
+        >* Email is Requierd</span
+      >
+      <span *ngIf="verifyForm.get('email')?.getError('email')"
+        >*Please Enter A Valid Email</span
+      >
+    </span>
+    <span *ngIf="verifyForm.get('email')?.valid">
+      <span class="valid">
+        <i class="fa fa-check me-3" aria-hidden="true"></i>
+        Valid Email</span
+      >
+    </span>
+    <div>
+      <mat-form-field class="w-100">
+        <mat-label>OTP Verification</mat-label>
+        <input
+          formControlName="code"
+          matInput
+          type="text"
+          placeholder="Enter Verification "
+        />
+      </mat-form-field>
+    </div>
+    <span
+      class="errors"
+      *ngIf="verifyForm.get('code')?.errors && verifyForm.get('code')?.touched"
+    >
+      <span *ngIf="verifyForm.get('code')?.getError('required')"
+        >* OTP is Requierd</span
+      >
+    </span>
+    <span *ngIf="verifyForm.get('code')?.valid">
+      <span class="valid">
+        <i class="fa fa-check me-3" aria-hidden="true"></i>
+        Valid OTP
+      </span>
+    </span>
+
+    <div class="text-center">
+      <button [disabled]="verifyForm.invalid" class="main-btn w-100 mt-4">
+        Save
+      </button>
+    </div>
+  </form>
 </section>
