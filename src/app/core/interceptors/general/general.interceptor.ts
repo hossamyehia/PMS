@@ -28,6 +28,8 @@ export class GeneralInterceptor implements HttpInterceptor {
         },
       });
     }
+
+    // return next.handle(request)
     return next.handle(request).pipe(
       catchError((err) => {
         if (err.status === 401) {
