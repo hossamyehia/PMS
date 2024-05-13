@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { iForget, iLogin, iReset, iVerify } from '../models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class AuthService {
     return this._httpClient.put("Users/verify", data);
   }
 
-  onForget( data: iForget){
+  onForget( data: iForget): Observable<any>{
     return this._httpClient.post("Users/Reset/Request", data);
   }
 
