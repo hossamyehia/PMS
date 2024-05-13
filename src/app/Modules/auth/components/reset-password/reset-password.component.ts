@@ -16,7 +16,7 @@ export class ResetPasswordComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$/)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$/)],),
-    seed: new FormControl(''),
+    seed: new FormControl('',[Validators.required]),
   })
 
   bgImagePath = "url('assets/images/bg1-1.png')";
