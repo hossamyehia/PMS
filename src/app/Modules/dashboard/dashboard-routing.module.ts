@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
+import { managerGuard, employeeGuard } from 'src/app/core';
 
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
-      { path: 'manager', loadChildren: () => import('./subModules/manager/manager.module').then(m => m.ManagerModule) },
-      { path: 'employee', loadChildren: () => import('./subModules/employee/employee.module').then(m => m.EmployeeModule) }
+      { path: 'manager', canActivate: [managerGuard], loadChildren: () => import('./subModules/manager/manager.module').then(m => m.ManagerModule) },
+      { path: 'employee', canActivate: [employeeGuard], loadChildren: () => import('./subModules/employee/employee.module').then(m => m.EmployeeModule) }
     ]
   },
 ];
