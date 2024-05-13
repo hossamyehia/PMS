@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from 'src/app/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   })
 
   bgImagePath = "url('assets/images/bg3.png')";
-
+  
   constructor(private _AuthService: AuthService, private _TokenService:TokenService,
     private _Router:Router
   ) { }
