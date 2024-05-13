@@ -1,0 +1,16 @@
+<section class="bg-dash vh-100">
+  <div>
+    <ul>
+      <ng-container *ngFor="let item of menu">
+
+        <li *ngIf="item.isActive">
+          <a [routerLink]="item.link">
+            <span><i [class]="item.icon"></i></span>
+            <span>{{item.text}}</span>
+          </a>
+        </li>
+        
+      </ng-container>
+    </ul>
+  </div>
+</section>
