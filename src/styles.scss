@@ -12,7 +12,7 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$pms-primary: mat.define-palette(mat.$indigo-palette);
+$pms-primary: mat.define-palette(mat.$yellow-palette, 900);
 $pms-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
@@ -35,5 +35,88 @@ $pms-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
+:root{
+    --imagePath: "";
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.auth{
+  height: 100vh;
+}
+
+.auth-bg{
+  background-image: var(--imagePath);
+}
+
+.auth-card{
+  background-color: rgba(49, 89, 81, 0.898);
+  border-radius: 16px;
+  
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    color: #fff;
+  }
+  
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder {
+    color: #fff;
+  }
+  
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: #fff;
+  }
+  
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label--float-above {
+    color: #ef9b28;
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
+  }
+  
+  p {
+    color: #fff;
+    margin: 0;
+  }
+  h2 {
+    color: #ef9b28;
+    &::first-letter {
+      border-bottom: 4px solid #ef9b28;
+    }
+  }
+  
+  
+  .links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+.errors{
+  color: rgb(247, 72, 72);
+}
+.valid{
+   color: #EF9B28;
+}
+
+
+.main-btn {
+  border: none;
+  padding: 15px;
+  color: #fff;
+  background-color: #ef9b28;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.4s;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
