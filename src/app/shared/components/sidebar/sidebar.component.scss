@@ -1,0 +1,21 @@
+ul{
+  list-style: none;
+  padding: 0;
+  li{
+
+    padding:0.5rem;
+
+    a{
+      display: block;
+      text-decoration: none;
+      color:#fff;
+      background-color: tomato;
+      border-radius: 8px;
+      padding:5px 10px;
+      span:first-of-type{
+        margin-right:10px
+      }
+    }
+  }
+}
+
