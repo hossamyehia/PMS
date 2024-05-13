@@ -39,11 +39,10 @@ $pms-theme: mat.define-light-theme((
     --imagePath: "";
 }
 
-html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .auth{
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .auth-bg{
