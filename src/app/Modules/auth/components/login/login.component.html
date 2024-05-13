@@ -11,18 +11,20 @@
           matInput
           placeholder="Enter Your Email"
         />
+        <mat-hint
+          *ngIf="
+            loginForm.get('email')?.errors && loginForm.get('email')?.touched
+          "
+          class="text-center text-white"
+        >
+          <ng-container *ngIf="loginForm.get('email')?.getError('required')">
+            * Email is Requierd
+          </ng-container>
+          <ng-container *ngIf="loginForm.get('email')?.getError('email')">
+            * Email Invalid Format
+          </ng-container>
+        </mat-hint>
       </mat-form-field>
-    </div>
-    <div
-      *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched"
-      class="text-center fw-bold"
-    >
-      <p *ngIf="loginForm.get('email')?.getError('required')">
-        * Email is Requierd
-      </p>
-      <p *ngIf="loginForm.get('email')?.getError('email')">
-        * Email Invalid Format
-      </p>
     </div>
 
     <div>
@@ -45,26 +47,25 @@
             hide ? "visibility_off" : "visibility"
           }}</mat-icon>
         </button>
+        <mat-hint
+          *ngIf="
+            loginForm.get('password')?.errors &&
+            loginForm.get('password')?.touched
+          "
+          class="text-center text-white"
+        >
+          <ng-container *ngIf="loginForm.get('password')?.getError('required')">
+            * Password is Requierd
+          </ng-container>
+          <ng-container *ngIf="loginForm.get('password')?.getError('pattern')">
+            * Invalid Password
+          </ng-container>
+        </mat-hint>
       </mat-form-field>
     </div>
-    <div
-      *ngIf="
-        loginForm.get('password')?.errors && loginForm.get('password')?.touched
-      "
-      class="text-center fw-bold"
-    >
-      <p *ngIf="loginForm.get('password')?.getError('required')">
-        * Password is Requierd
-      </p>
-      <p *ngIf="loginForm.get('password')?.getError('pattern')">
-        * Must be Contain Uppercase Letter, Lowercase Letter, Numeric Value,
-        Special Symbol(!@#$%^&*_+=-) and the total length should be between 8 -
-        16
-      </p>
-    </div>
     <div class="links">
-      <a href="">Register Now?</a>
-      <a routerLinkActive="active" routerLink="../ForgotPassword" >Forgot Password</a>
+      <a routerLink="../register">Register Now?</a>
+      <a routerLink="../ForgotPassword">Forgot Password</a>
     </div>
 
     <div class="text-center">
