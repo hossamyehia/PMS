@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   bgImagePath = "url('assets/images/bg3.png')";
 
-  constructor(private _AuthService: AuthService) { }
+  constructor(private _AuthService: AuthService, private _Router:Router) { }
 
   ngOnInit(): void {
       (document.querySelector(".auth-bg") as any).style.setProperty("--imagePath", `${this.bgImagePath}`)

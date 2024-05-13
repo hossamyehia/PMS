@@ -26,7 +26,7 @@ export class AuthService {
     return this._httpClient.put("Users/verify", data);
   }
 
-  onForget( data: iForget){
+  onForget( data: iForget): Observable<any>{
     return this._httpClient.post("Users/Reset/Request", data);
   }
 
