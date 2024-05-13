@@ -4,3 +4,13 @@ export interface iReset{
     password: string,
     confirmPassword: string
 }
+
+export interface iResetResponse {
+  message: string;
+  statusCode?: number;
+  additionalInfo?: {
+    errors?: {
+      [key: string]: string[];
+    };
+  };
+}
