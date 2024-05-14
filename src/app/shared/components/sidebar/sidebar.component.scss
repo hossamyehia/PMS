@@ -9,11 +9,12 @@ ul{
       display: block;
       text-decoration: none;
       color:#fff;
-      background-color: tomato;
+      
       border-radius: 8px;
       padding:5px 10px;
-      span:first-of-type{
-        margin-right:10px
+
+      &.active-link{
+        background-color: hsla(35, 87%, 55%, 0.302);
       }
     }
   }

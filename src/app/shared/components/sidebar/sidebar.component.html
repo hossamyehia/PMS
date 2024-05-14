@@ -4,7 +4,7 @@
       <ng-container *ngFor="let item of menu">
 
         <li *ngIf="item.isActive">
-          <a [routerLink]="item.link">
+          <a [routerLink]="item.link" routerLinkActive="active-link" >
             <span><i [class]="item.icon"></i></span>
             <span>{{item.text}}</span>
           </a>
