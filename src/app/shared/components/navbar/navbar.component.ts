@@ -8,9 +8,8 @@ import { TokenService } from 'src/app/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-
   
-UserName: string = "";
+  UserName: string = "";
 UserEmail: string = "";
 userData!:any;
 imgUrl: string = "";

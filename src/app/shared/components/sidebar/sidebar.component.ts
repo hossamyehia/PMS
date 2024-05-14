@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
-import { TokenService } from 'src/app/core';
 
-interface IMenu {
-  text: string;
-  icon: string;
-  link: string;
-  isActive: boolean
-}
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { TokenService } from 'src/app/core';
+import { IMenu } from './model/IMenu.model';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -15,6 +11,10 @@ interface IMenu {
 })
 export class SidebarComponent {
 
+  opened: boolean = false;
+  @ViewChild("parElm", { static: true }) parElm!: ElementRef;
+  @ViewChild("sect", { static: true }) sect!: ElementRef;
+  
   menu: IMenu[] = [
     {
       text: 'Users',
@@ -48,5 +48,16 @@ export class SidebarComponent {
     },
   ]
 
-  constructor(private _TokenService: TokenService) { }
+  constructor(private _TokenService:TokenService){}
+
+  ngOnInit(): void {
+    this.sect.nativeElement.style.width = `${this.parElm.nativeElement.offsetWidth}px`;
+  }
+
+  toggleSidebar() {
+    this.parElm.nativeElement.classList.toggle("active-sidebar")
+    this.sect.nativeElement.style.width = `${this.parElm.nativeElement.offsetWidth}px`;
+    this.opened = !this.opened;
+  }
+
 }

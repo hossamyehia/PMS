@@ -1,16 +1,30 @@
-<section class="bg-dash vh-100">
-  <div>
-    <ul>
-      <ng-container *ngFor="let item of menu">
 
-        <li *ngIf="item.isActive">
-          <a [routerLink]="item.link" routerLinkActive="active-link" >
-            <span><i [class]="item.icon"></i></span>
-            <span>{{item.text}}</span>
-          </a>
-        </li>
-        
-      </ng-container>
+<section class="bg-dash vh-100">
+  <div
+    class="sideBar d-flex flex-column justify-content-around overflow-hidden min-vh-100 h-100 position-relative"
+    #parElm
+  >
+    <div
+      (click)="toggleSidebar()"
+      role="button"
+      class="d-flex justify-content-start align-items-center icon"
+      [ngClass]="{'closed': !opened, 'opened': opened}"
+    >
+      {{ opened ? "<" : ">" }}
+    </div>
+    <ul>
+      <ul #elm>
+        <ng-container *ngFor="let page of menu">
+          <ng-container *ngIf="page.isActive">
+            <li>
+              <a [routerLink]="[page['link']]" routerLinkActive="active-link">
+                <i [class]="page['icon']" class="fluid-sm-text"></i>
+                <span class="fluid-sm-text">{{ page.text }}</span>
+              </a>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ul>
     </ul>
   </div>
 </section>
