@@ -31,7 +31,7 @@ export class DashboardComponent {
     this.sideBar.nativeElement.style.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
     setTimeout(() => {
       this.sideBar.nativeElement.style.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
-    }, 1000)
+    }, 0)
   }
 
   cnLog(...messages: any) {
