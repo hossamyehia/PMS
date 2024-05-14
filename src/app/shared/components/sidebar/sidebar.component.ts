@@ -1,6 +1,8 @@
+
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { TokenService } from 'src/app/core';
 import { IMenu } from './model/IMenu.model';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -14,36 +16,35 @@ export class SidebarComponent {
   @ViewChild("sect", { static: true }) sect!: ElementRef;
   
   menu: IMenu[] = [
-
     {
-      text:'Users',
-      icon:'fa-solid fa-user-group',
-      link:'/dashboard/manager/users',
-      isActive:this._TokenService.isManager()
+      text: 'Users',
+      icon: 'fa-thin fa-user-group',
+      link: '/dashboard/manager/users',
+      isActive: this._TokenService.isManager()
     },
     {
-      text:'Projects Manager',
-      icon:'fa-solid fa-diagram-project',
-      link:'/dashboard/manager/projects',
-      isActive:this._TokenService.isManager()
+      text: 'Projects',
+      icon: 'fa-thin fa-objects-column',
+      link: '/dashboard/manager/projects',
+      isActive: this._TokenService.isManager()
     },
     {
-      text:'Tasks Manager',
-      icon:'fa-solid fa-list-check',
-      link:'/dashboard/manager/tasks',
-      isActive:this._TokenService.isManager()
+      text: 'Tasks',
+      icon: 'fa-thin fa-list-check',
+      link: '/dashboard/manager/tasks',
+      isActive: this._TokenService.isManager()
     },
     {
-      text:'Projects Emp',
-      icon:'fa-solid fa-diagram-project',
-      link:'/dashboard/employee/projects',
-      isActive:this._TokenService.isEmployee()
+      text: 'Projects',
+      icon: 'fa-thin fa-objects-column',
+      link: '/dashboard/employee/projects',
+      isActive: this._TokenService.isEmployee()
     },
     {
-      text:'Taskes Emp',
-      icon:'fa-solid fa-list-check',
-      link:'/dashboard/employee/tasks',
-      isActive:this._TokenService.isEmployee()
+      text: 'Tasks',
+      icon: 'fa-thin fa-list-check',
+      link: '/dashboard/employee/tasks',
+      isActive: this._TokenService.isEmployee()
     },
   ]
 
