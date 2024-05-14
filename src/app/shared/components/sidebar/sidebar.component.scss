@@ -1,26 +1,50 @@
-
 .sideBar {
   $padding-right: clamp(1rem, 2.054945055vw + 1rem, 4rem);
-  $margin-inline: clamp(5px, 5.054945055vw + 5px, 36px);
-  $min-width: clamp(5px, 5.054945055vw + 5px, 20px);
+  $margin-inline: clamp(5px, 5.054945055vw + 5px, 20px);
   $duration: 0.25s;
-  $timing-func-default: cubic-bezier(0.93, 0.28, 0.72, 0.71);
+  // $timing-func-default: cubic-bezier(0.93, 0.28, 0.72, 0.71);
+  $timing-func-default: linear;
 
   position: fixed;
   background-color: hsl(167, 60%, 14%);
-  width: calc(($margin-inline * 2) + $min-width);
-  max-width: inherit;
-  transition: all $duration;
-  -webkit-transition: all $duration;
-  -moz-transition: all $duration;
+  min-width: fit-content;
+  max-width: fit-content;
+  transition: width $duration;
+  -webkit-transition: width $duration;
+  -moz-transition: width $duration;
   transition-timing-function: $timing-func-default;
+  transition-delay: calc((2 * $duration) / 3);
+
+  &.active-sidebar {
+    // width: fit-content;
+
+    .pages-links {
+      ul {
+        li {
+          a {
+            span {
+              //display: inline-block;
+              width: 100%;
+              opacity: 1;
+              padding-right: $padding-right;
+              //position: static;
+            }
+          }
+        }
+      }
+    }
+  }
 
   .icon {
     position: absolute;
-    top: 10%;
+    top: 5%;
 
-    background-color: tomato;
+    background-color: hsla(35, 87%, 55%);
     color: white;
+    transition: right $duration, left $duration;
+    -webkit-transition: right $duration, left $duration;
+    -moz-transition: right $duration, left $duration;
+    transition-timing-function: $timing-func-default;
     &.opened {
       right: 0;
     }
@@ -29,94 +53,51 @@
     }
   }
 
-  &.active-sidebar {
-    width: max-content;
-    border-top-right-radius: 10vh;
-
-    .pages-links {
-      ul {
-        li {
-          a {
-            span {
-              transform: translateX(0);
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  img {
-    width: 100%;
-  }
-
   .pages-links {
     ul {
       list-style: none;
       padding-left: 0px;
 
       li {
-        padding-block: 6px;
-        padding-right: $padding-right;
-        margin-block: 8px;
+        padding: 6px;
         text-wrap: nowrap;
         overflow: hidden;
 
         a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           font-size: 1rem;
           color: white;
           text-decoration: none;
+          border-radius: 8px;
+          padding: 0.5em;
+
           i {
-            font-size: 1.2rem;
-            min-width: $min-width;
-            margin-inline: $margin-inline;
             color: white;
+            margin-inline: $margin-inline;
           }
           span {
-            display: inline-block;
-            vertical-align: top;
-            transform: translateX(calc($margin-inline / -2));
+            // display: none;
+            //transform: translateX(calc($margin-inline / -2));
+            // position: absolute;
+            width: 0;
+            padding: 0;
+            margin: 0;
             opacity: 0;
-            transition: all $duration;
-            -webkit-transition: all $duration;
-            -moz-transition: all $duration;
+            transition: width $duration, opacity $duration, padding $duration;
+            -webkit-transition: width $duration, opacity $duration,
+              padding $duration;
+            -moz-transition: width $duration, opacity $duration,
+              padding $duration;
             transition-timing-function: $timing-func-default;
           }
-        }
 
-        &:has(a.active-link) {
-          background-color: hsla(149, 100%, 29%, 0.1);
-          border-left: 3px solid hsl(149, 100%, 29%);
-
-          i {
-            margin-left: calc($margin-inline - 3px);
+          &.active-link {
+            background-color: hsla(35, 87%, 55%, 0.302);
           }
         }
       }
     }
   }
 }
-
-ul{
-  list-style: none;
-  padding: 0;
-  li{
-
-    padding:0.5rem;
-
-    a{
-      display: block;
-      text-decoration: none;
-      color:#fff;
-      
-      border-radius: 8px;
-      padding:5px 10px;
-
-      &.active-link{
-        background-color: hsla(35, 87%, 55%, 0.302);
-      }
-    }
-  }
-}
-

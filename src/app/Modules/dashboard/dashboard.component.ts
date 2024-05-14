@@ -10,6 +10,8 @@ export class DashboardComponent {
 
   @ViewChild("sidebar", { static: true })
   sideBar!: ElementRef;
+  @ViewChild("navbar", { static: true })
+  navBar!: ElementRef;
   @ViewChild("mainSection", { static: true })
   mainSection!: ElementRef;
   @ViewChild("RouteOutlet", { static: true })
@@ -26,9 +28,13 @@ export class DashboardComponent {
     //     this.height = newData.parentHeight;
     //   }
     // })
+    this.sideBar.nativeElement.style.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
+    setTimeout(() => {
+      this.sideBar.nativeElement.style.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
+    }, 1000)
   }
 
-  cnLog(...messages: any){
+  cnLog(...messages: any) {
     console.log(...messages)
   }
 

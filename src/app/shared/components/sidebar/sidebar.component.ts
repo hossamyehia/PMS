@@ -17,6 +17,12 @@ export class SidebarComponent {
   
   menu: IMenu[] = [
     {
+      text: 'Home',
+      icon: 'fa-thin fa-house',
+      link: '/dashboard/home',
+      isActive: true
+    },
+    {
       text: 'Users',
       icon: 'fa-thin fa-user-group',
       link: '/dashboard/manager/users',
@@ -50,13 +56,8 @@ export class SidebarComponent {
 
   constructor(private _TokenService:TokenService){}
 
-  ngOnInit(): void {
-    this.sect.nativeElement.style.width = `${this.parElm.nativeElement.offsetWidth}px`;
-  }
-
   toggleSidebar() {
     this.parElm.nativeElement.classList.toggle("active-sidebar")
-    this.sect.nativeElement.style.width = `${this.parElm.nativeElement.offsetWidth}px`;
     this.opened = !this.opened;
   }
 

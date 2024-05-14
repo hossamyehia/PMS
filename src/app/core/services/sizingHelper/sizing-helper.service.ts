@@ -56,8 +56,10 @@ export class SizingHelperService {
     // }
 
     const sideBarObserver = new ResizeObserver(entries => {
-      sidebar_width = entries[0].devicePixelContentBoxSize[0].inlineSize + 1;
+      sidebar_width = entries[0].contentRect.width + ((entries[0].devicePixelContentBoxSize[0].inlineSize - entries[0].contentRect.width) / 4);
       sidebar_height = entries[0].contentRect.height;
+      
+      //console.log(entries[0])
       
       //calcHeight();
       calcWidth();

@@ -1,15 +1,15 @@
 
 <section>
     <div class="container-fluid">
-        <div #navBar class="row">
+        <div #navbar class="row">
             <app-navbar></app-navbar>
         </div>
         <div class="row flex-nowrap">
-            <div #sideBar class="col-md-2">
+            <div #sidebar class="w-auto px-0">
                 <app-sidebar></app-sidebar>
             </div>
-            <div #mainSection class="col-md-10 bg-light">
-                <router-outlet></router-outlet>
+            <div #mainSection class="bg-light">
+                <router-outlet #RouteOutlet></router-outlet>
             </div>
         </div>
     </div>
