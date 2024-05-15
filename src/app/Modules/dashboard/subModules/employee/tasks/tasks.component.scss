@@ -1,6 +1,7 @@
 .content {
   height: 600px;
   width: 100%;
+
   h2 {
     color: #4f4f4f;
   }
@@ -24,18 +25,14 @@
       background-color: rgba(194, 194, 193, 0);
       border-radius: 10px;
       border: 2px;
-    &:hover {
-      background-color: rgba(194, 194, 193, 0.7);
-    }
-
+      &:hover {
+        background-color: rgba(194, 194, 193, 0.7);
+      }
     }
 
     &::-webkit-scrollbar-button {
       display: none;
     }
-
-
-
 
     .scroll-content {
       display: inline-block;
@@ -65,31 +62,29 @@
           border-radius: 0.5rem;
           margin-bottom: 1rem;
           padding: 1rem;
-           i {
+          i {
             cursor: pointer;
-           }
-        }
-
-
-        .scroller {
-        &::-webkit-scrollbar {
-          width: 0.4rem;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background-color: rgba(194, 194, 193, 0);
-          border-radius: 10px;
-          border: 2px;
-          &:hover {
-            background-color: rgba(194, 194, 193, 0.2);
           }
         }
 
-        &::-webkit-scrollbar-button {
-          display: none;
-        }
+        .scroller {
+          &::-webkit-scrollbar {
+            width: 0.4rem;
+          }
 
-      }
+          &::-webkit-scrollbar-thumb {
+            background-color: rgba(194, 194, 193, 0);
+            border-radius: 10px;
+            border: 2px;
+            &:hover {
+              background-color: rgba(194, 194, 193, 0.2);
+            }
+          }
+
+          &::-webkit-scrollbar-button {
+            display: none;
+          }
+        }
       }
       .add-task {
         width: 32px;
@@ -98,6 +93,4 @@
       }
     }
   }
-
-
 }
