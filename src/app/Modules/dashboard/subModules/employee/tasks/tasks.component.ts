@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent {
+  dummyNumbers = Array(5).fill(0).map((x, i) => i + 1);
 
 }
