@@ -4,9 +4,9 @@
     height: 100%;
   }
 </style>
-<section #sect class="bg-dash h-100">
+<section #sect class="bg-dash" [style.height]="height">
   <div
-    class="sideBar d-flex flex-column justify-content-around h-100 position-relative"
+    class="sideBar d-flex flex-column justify-content-around h-100"
     [ngClass]="{'active-sidebar': opened}"
     #parElm
   >

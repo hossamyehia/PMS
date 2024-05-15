@@ -7,10 +7,4 @@ export interface iReset{
 
 export interface iResetResponse {
   message: string;
-  statusCode?: number;
-  additionalInfo?: {
-    errors?: {
-      [key: string]: string[];
-    };
-  };
 }

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HelperService } from 'src/app/core/services/helper/helper.service';
+import { iErrorResponse } from 'src/app/core';
+import { iResetResponse } from '../../models';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +22,7 @@ export class RegisterComponent {
 
   bgImagePath = "url('assets/images/bg1.png')";
 
-  constructor(private _AuthService: AuthService) { }
+  constructor(private _AuthService: AuthService,private _helperSerivce: HelperService) { }
 
   ngOnInit(): void {
       (document.querySelector(".auth-bg") as any).style.setProperty("--imagePath", `${this.bgImagePath}`);
@@ -75,8 +78,8 @@ export class RegisterComponent {
         next: (res) => {
           console.log(res)
         },
-        error: (err) => {
-          console.log(err);
+        error: (err: iErrorResponse) => {
+          console.log(this._helperSerivce.getErrorMessage(err));
 
         }
       })
