@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { TokenService } from 'src/app/core';
 import { IMenu } from './model/IMenu.model';
 
@@ -14,6 +14,7 @@ export class SidebarComponent {
   opened: boolean = false;
   @ViewChild("parElm", { static: true }) parElm!: ElementRef;
   @ViewChild("sect", { static: true }) sect!: ElementRef;
+  @Input() height!:string;
   
   menu: IMenu[] = [
     {

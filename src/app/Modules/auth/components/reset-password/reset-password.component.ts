@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { iResetResponse, iReset } from '../../models/iReset.model';
+import { iErrorResponse } from 'src/app/core';
 
 @Component({
   selector: 'app-reset-password',
@@ -48,9 +49,9 @@ export class ResetPasswordComponent {
     if (this.resetForm.valid) {
       this._AuthService.onReset(data).subscribe({
         next: (response: iResetResponse) => {
-          console.log('Password reset successful', response.message, response.statusCode);
+          console.log('Password reset successful', response.message);
         },
-        error: (error) => {
+        error: (error: iErrorResponse) => {
           console.error('Error resetting password', error);
           if (
             error.error &&

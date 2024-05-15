@@ -17,7 +17,7 @@ export class DashboardComponent {
   @ViewChild("RouteOutlet", { static: true })
   RouteOutlet!: ElementRef;
 
-  height!: number;
+  height!: string;
 
   constructor(private _sizingHelper: SizingHelperService) { }
 
@@ -28,9 +28,9 @@ export class DashboardComponent {
     //     this.height = newData.parentHeight;
     //   }
     // })
-    this.sideBar.nativeElement.style.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
+    this.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
     setTimeout(() => {
-      this.sideBar.nativeElement.style.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
+      this.height = `${window.innerHeight - this.navBar.nativeElement.offsetHeight}px`;
     }, 0)
   }
 
