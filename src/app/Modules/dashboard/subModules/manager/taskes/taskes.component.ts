@@ -4,8 +4,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { iPage, HelperService, iErrorResponse } from 'src/app/core';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
-import { iSearchableProject, iProjectResponse } from '../../../shared/projects/models';
-import { ProjectService } from '../../../shared/projects/services/project.service';
 import { iSearchableTask } from '../../../shared/tasks/models/iSearchableTask.model';
 import { TasksService } from '../../../shared/tasks/services/tasks.service';
 import { iTaskResponse } from '../../../shared/tasks/models/iTaskResponse.model';
@@ -87,4 +85,33 @@ displayedColumns: string[] = ['Title', 'Status', 'User', 'Project' ,'CreationDat
     this.SearchValue= '';
     this.getAllTasks();
   }
+  //delete Task 
+  openDeleteDialog(deltedId:number) {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {id:deltedId},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The delete  was closed');
+       console.log( result);
+       //check result 
+       if(result){
+        this.deleteTaskbyID(result)
+      //add toaster
+       }
+      
+
+    });
+  }
+  deleteTaskbyID(id:number){
+    this._TasksService.onDeleteTask(id).subscribe({
+      next:(res)=>{
+        console.log(res)
+      },
+      error:()=>{},
+      complete:()=>{
+         this.getAllTasks()
+      },
+  
+    })
+    }
 }

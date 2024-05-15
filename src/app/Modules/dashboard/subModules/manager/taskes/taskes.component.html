@@ -95,7 +95,8 @@
                                 <mat-icon>edit_note</mat-icon>
                                 <span>Update</span>
                             </button>
-                            <button mat-menu-item>
+                            <button mat-menu-item  
+                             (click)="openDeleteDialog(element.id)">
                                
                                 <mat-icon>delete</mat-icon>
                                 <span>Delete</span>

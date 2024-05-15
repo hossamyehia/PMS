@@ -26,15 +26,15 @@ export class TasksService {
     return this._httpClient.get<iTask>(`Task/${id}`);
   }
 
-  onAddProject(data: iTask): Observable<iTask>{
+  onAddTask(data: iTask): Observable<iTask>{
     return this._httpClient.post<iTask>('Task', data);
   }
 
-  onEditProject(id:number, data: iTask): Observable<iTask>{
+  onEditTask(id:number, data: iTask): Observable<iTask>{
     return this._httpClient.put<iTask>(`Task/${id}`, data);
   }
 
-  onDeleteProject(id:number){
+  onDeleteTask(id:number){
     return this._httpClient.delete(`Task/${id}`);
   }
 }
