@@ -10,28 +10,8 @@
             <h3 class="task-card-title mb-4 w-50">To Do</h3>
             <div class="task-card">
               <div class="task-scroll d-flex justify-content-center">
-                <div class="mt-5 mb-4 overflow-y-scroll overflow-x-hidden">
-                  <div class="task">
-                    login Ui
-                    <span><i class="fa-solid fa-pen-to-square"></i></span>
-                  </div>
-                  <div class="task">
-                    login Ui
-                    <span><i class="fa-solid fa-pen-to-square"></i></span>
-                  </div>
-                  <div class="task">
-                    login Ui
-                    <span><i class="fa-solid fa-pen-to-square"></i></span>
-                  </div>
-                  <div class="task">
-                    login Ui
-                    <span><i class="fa-solid fa-pen-to-square"></i></span>
-                  </div>
-                  <div class="task">
-                    login Ui
-                    <span><i class="fa-solid fa-pen-to-square"></i></span>
-                  </div>
-                  <div class="task">
+                <div class="mt-5 mb-4 overflow-y-scroll overflow-x-hidden scroller ">
+                  <div *ngFor="let list of dummyTasks" class="task">
                     login Ui
                     <span><i class="fa-solid fa-pen-to-square"></i></span>
                   </div>
@@ -49,4 +29,5 @@
         </div>
       </div>
     </div>
+
 </section>
