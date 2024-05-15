@@ -1,0 +1,16 @@
+.status{
+    color:#fff ;
+    border-radius: 18px;
+    padding: 10px 15px;
+   &.Done{
+    background-color: rgba(0, 146, 71, 1);
+    ;
+   }
+   &.InProgress{
+  background-color: rgba(239, 155, 40, 0.64);
+   }
+   &.ToDo{
+    background-color:rgb(208, 204, 231);
+   }
+
+    }
