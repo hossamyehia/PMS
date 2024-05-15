@@ -13,7 +13,7 @@
                 <div class="mt-5 mb-4 overflow-y-scroll overflow-x-hidden scroller ">
                   <div *ngFor="let list of dummyTasks" class="task">
                     login Ui
-                    <span><i class="fa-solid fa-pen-to-square"></i></span>
+                    <span><i class="fa-solid fa-pen-to-square" (click)="onEditCard()"></i></span>
                   </div>
                 </div>
               </div>
