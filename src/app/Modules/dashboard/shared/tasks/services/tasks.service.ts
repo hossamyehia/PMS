@@ -26,15 +26,22 @@ export class TasksService {
     return this._httpClient.get<iTask>(`Task/${id}`);
   }
 
-  onAddTask(data: iTask): Observable<iTask>{
+  onAddTask(data: any): Observable<iTask>{
     return this._httpClient.post<iTask>('Task', data);
   }
 
-  onEditTask(id:number, data: iTask): Observable<iTask>{
+  onEditTask(id:number, data: any): Observable<iTask>{
     return this._httpClient.put<iTask>(`Task/${id}`, data);
   }
 
   onDeleteTask(id:number){
     return this._httpClient.delete(`Task/${id}`);
   }
+  ///////////// get all users and will change it after making user service 
+
+getAllUsers(params:any): Observable<any>{
+    return this._httpClient.get<any>('Users/', {params: params });
+  
+}
+
 }

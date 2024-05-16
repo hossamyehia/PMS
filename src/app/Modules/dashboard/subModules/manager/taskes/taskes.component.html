@@ -87,11 +87,11 @@
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item>
+                            <button mat-menu-item  [routerLink]="['/dashboard/manager/tasks/view/',element.id,'view']">
                                 <mat-icon>visibility</mat-icon>
                                 <span>View</span>
                             </button>
-                            <button mat-menu-item  >
+                            <button mat-menu-item    [routerLink]="['/dashboard/manager/tasks/edit/',element.id]">
                                 <mat-icon>edit_note</mat-icon>
                                 <span>Update</span>
                             </button>

@@ -1,10 +1,17 @@
+
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { iUser } from 'src/app/Modules/dashboard/model/iUser.model';
 import { iProject, iProjectResponse, iSearchableProject } from 'src/app/Modules/dashboard/shared/projects/models';
 import { ProjectService } from 'src/app/Modules/dashboard/shared/projects/services/project.service';
+import { iTask } from 'src/app/Modules/dashboard/shared/tasks/models';
+import { iTaskData } from 'src/app/Modules/dashboard/shared/tasks/models/ITaskData.model';
 import { TasksService } from 'src/app/Modules/dashboard/shared/tasks/services/tasks.service';
 import { HelperService } from 'src/app/core';
+
+
 
 @Component({
   selector: 'app-display-task',
@@ -15,6 +22,7 @@ export class DisplayTaskComponent {
 
   view: string = 'false';
   id!: number;
+  //////
   pageSize =1000 ;
   pageNumber =1 ;
   //for getting all projects
@@ -23,38 +31,119 @@ export class DisplayTaskComponent {
     pageSize: this.pageSize,
     pageNumber: this.pageNumber,
   };
+  //for getting users
+  userParams: any = {
+    groups: 2,
+    pageSize: this.pageSize,
+    pageNumber: this.pageNumber,
+  };///////data 
+
   Projectsdata:iProject[] =[];
+  UsersData:iUser[]=[];
+  ///for updating task
+  updatingTaskData!:iTask;
+///form 
   taskForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     employeeId :new FormControl('', [Validators.required]),
     projectId :new FormControl('', [Validators.required]),
-  })
+  });
 
  
 
 
   constructor(
     private _ProjectService: ProjectService,private _TasksService:TasksService,
-    private _route: ActivatedRoute,
-    private _helperService: HelperService
-  ) { }
+    private _route: Router,
+    private _helperService: HelperService ,private _ActivatedRoute: ActivatedRoute
+  ) { 
+    this.id = this._ActivatedRoute.snapshot.params['id'];
+
+    if (this.id) {
+      //edit 
+      this.getTaskById(this.id);
+
+    }
+
+  }
 
   ngOnInit(): void {
     this.getAllProject();
+    this.getAllUsers();
+  }
+  ///get by id 
+
+  getTaskById(id: number) {
+    this._TasksService.getTaskById(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.updatingTaskData = res;
+        console.log(this.updatingTaskData.title)
+      },
+      error: () => {
+      },
+      complete: () => {
+      //patching values
+      this.taskForm.patchValue({
+        title: this.updatingTaskData.title,
+        description: this.updatingTaskData.description,
+        employeeId: this.updatingTaskData.employee?.id,
+        projectId: this.updatingTaskData.project?.id,
+        
+
+      });
+       
+      }
+
+    });
   }
 
-  onSubmit() {
+
+
+
+  onSubmit(data:FormGroup) {
+    //console.log(data.value)
+ 
+    if (this.id) {
+      // -update  
+      this.onEdit(this.id, data.value);
+    }
+    else {
+      /// add new recipe 
+      this.onAdd(data.value);
+    }
+  }
+
+  onAdd(data:iTaskData): void {
+   
+      this._TasksService.onAddTask(data).subscribe( {
+        next: (res) => {
+        console.log(res)
+      }, error: () => {
+  
+      }, complete: () => {
+        this._helperService.openSnackBar("Task has been added Successfully");
+        this._route.navigateByUrl('/dashboard/manager/tasks')
+      }
+      });
     
   }
 
-  onAdd(data: iProject): void {
-    
-  }
-
-  onEdit(data: iProject): void {
-    
-  }
+  onEdit( id:number , tasksData: iTaskData ) {
+      this._TasksService.onEditTask(id , tasksData ).subscribe({
+        next: (res) => {
+          console.log(res)
+        }, error: () => {
+  
+        }, complete: () => {
+          
+        this._route.navigateByUrl('/dashboard/manager/tasks')
+          this._helperService.openSnackBar("Task has been updated Successfully");
+        }
+      });
+    }
+  
 
   getAllProject() {
     
@@ -65,5 +154,15 @@ export class DisplayTaskComponent {
       }
      });
   } 
+  //need to be edited
+  getAllUsers(){
+    this._TasksService.getAllUsers(this.userParams).subscribe({
+      next: (res: any) => {
+        console.log(res)
+        this.UsersData = res.data;
+      }
+     });
+  } 
+  
     
 }

@@ -3,12 +3,12 @@ import { iProject } from "../../projects/models";
 
 export interface iTask{
     id: number,
-    title: string,
+title: string,
     
-status:string,
+    status:string,
     description: string,
     creationDate: Date,
     modificationDate: Date,
-    empolyee?: iEmployee,
+    employee?: iEmployee,
     project?: iProject
 }
