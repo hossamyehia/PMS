@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Observable, map, startWith } from 'rxjs';
 import { iUser } from 'src/app/Modules/dashboard/model/iUser.model';
 import { iProject, iProjectResponse, iSearchableProject } from 'src/app/Modules/dashboard/shared/projects/models';
 import { ProjectService } from 'src/app/Modules/dashboard/shared/projects/services/project.service';
@@ -20,7 +21,8 @@ import { HelperService } from 'src/app/core';
 })
 export class DisplayTaskComponent {
 
-  view: string = 'false';
+  view!: string ;
+  disabledView =false;
   id!: number;
   //////
   pageSize =1000 ;
@@ -49,6 +51,7 @@ export class DisplayTaskComponent {
     employeeId :new FormControl('', [Validators.required]),
     projectId :new FormControl('', [Validators.required]),
   });
+//auto complete project 
 
  
 
@@ -59,11 +62,16 @@ export class DisplayTaskComponent {
     private _helperService: HelperService ,private _ActivatedRoute: ActivatedRoute
   ) { 
     this.id = this._ActivatedRoute.snapshot.params['id'];
-
+    this.view =this._ActivatedRoute.snapshot.params['mood']
+    console.log(this.view)
     if (this.id) {
       //edit 
       this.getTaskById(this.id);
 
+    }
+    // to remove save button in view mode and disable the fields 
+    if(this.view){
+     this.disabledView=true
     }
 
   }
@@ -71,7 +79,13 @@ export class DisplayTaskComponent {
   ngOnInit(): void {
     this.getAllProject();
     this.getAllUsers();
+    //
+
+   
   }
+
+
+
   ///get by id 
 
   getTaskById(id: number) {
@@ -79,9 +93,10 @@ export class DisplayTaskComponent {
       next: (res) => {
         console.log(res);
         this.updatingTaskData = res;
-        console.log(this.updatingTaskData.title)
       },
-      error: () => {
+      error: (err) => {
+        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+        
       },
       complete: () => {
       //patching values
@@ -120,7 +135,8 @@ export class DisplayTaskComponent {
       this._TasksService.onAddTask(data).subscribe( {
         next: (res) => {
         console.log(res)
-      }, error: () => {
+      }, error: (err) => {
+        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
   
       }, complete: () => {
         this._helperService.openSnackBar("Task has been added Successfully");
@@ -134,8 +150,8 @@ export class DisplayTaskComponent {
       this._TasksService.onEditTask(id , tasksData ).subscribe({
         next: (res) => {
           console.log(res)
-        }, error: () => {
-  
+        }, error: (err) => {
+          this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
         }, complete: () => {
           
         this._route.navigateByUrl('/dashboard/manager/tasks')
@@ -151,6 +167,7 @@ export class DisplayTaskComponent {
       next: (res: iProjectResponse) => {
         console.log(res)
         this.Projectsdata = res.data;
+      
       }
      });
   } 
