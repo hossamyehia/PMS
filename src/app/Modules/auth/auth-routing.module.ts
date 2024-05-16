@@ -10,7 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 const routes: Routes = [
   {
     path: '', component: AuthComponent, children: [
-      { path: "", redirectTo: "login", pathMatch: "full"},
+      { path: '' ,redirectTo: "login", pathMatch: "full"},
       { path: "login", component: LoginComponent },
       { path: 'verify', component: VerifyComponent },
       { path: "reset", component: ResetPasswordComponent },
