@@ -91,12 +91,12 @@ displayedColumns: string[] = ['Title', 'Status', 'User', 'Project' ,'CreationDat
       data: {id:deltedId},
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The delete  was closed');
+  
        console.log( result);
        //check result 
        if(result){
         this.deleteTaskbyID(result)
-      //add toaster
+      this._helperSerivce.openSnackBar('Task has been Removed sucessfully')
        }
       
 
