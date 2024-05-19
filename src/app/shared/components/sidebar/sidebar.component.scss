@@ -38,6 +38,7 @@
   .icon {
     position: absolute;
     top: 5%;
+    padding: 0.25rem;
 
     background-color: hsla(35, 87%, 55%);
     color: white;
@@ -46,9 +47,11 @@
     -moz-transition: right $duration, left $duration;
     transition-timing-function: $timing-func-default;
     &.opened {
+      border-radius: 10px 0px 0px 10px;
       right: 0;
     }
     &.closed {
+      border-radius: 0px 10px 10px 0px;
       left: 100%;
     }
   }

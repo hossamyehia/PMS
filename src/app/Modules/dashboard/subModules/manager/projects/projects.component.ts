@@ -96,7 +96,7 @@ export class ProjectsComponent implements OnInit {
   getProjects() {
     this._projectService.getProjectsByManager(this.params).subscribe({
       next: (res: iProjectResponse) => {
-        console.log(res)
+        //console.log(res)
         this.table.data = res.data;
         this.pagination = (({ pageSize,
           pageNumber,
@@ -155,6 +155,11 @@ export class ProjectsComponent implements OnInit {
         this.deleteProject(result);
       }
     });
+  }
+
+  resetSearchInput(){
+    this.params.title= '';
+    this.getProjects();
   }
 
   changePage(e: PageEvent) {

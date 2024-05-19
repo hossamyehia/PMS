@@ -29,20 +29,20 @@ export class TaskesComponent {
     totalNumberOfPages: 0,
   }
 
-    params: iSearchableTask = {
+  params: iSearchableTask = {
     title: "",
-    status:'',
+    status: '',
     pageSize: this.pagination.pageSize,
     pageNumber: this.pagination.pageNumber,
   };
-  
-//table
-displayedColumns: string[] = ['Title', 'Status', 'User', 'Project' ,'CreationDate' ,'Action'];
+
+  //table
+  displayedColumns: string[] = ['Title', 'Status', 'User', 'Project', 'CreationDate', 'Action'];
 
 
   constructor(
-    private _TasksService:TasksService ,
-    private _helperSerivce: HelperService, 
+    private _TasksService: TasksService,
+    private _helperSerivce: HelperService,
     private _Router: Router,
     public dialog: MatDialog) { }
 
@@ -52,7 +52,7 @@ displayedColumns: string[] = ['Title', 'Status', 'User', 'Project' ,'CreationDat
 
   getAllTasks() {
     //define params
-    this.params.title=this.SearchValue
+    this.params.title = this.SearchValue;
     this.params.status = this.StatusChanged
     this._TasksService.getAllTasks(this.params).subscribe({
       next: (res: iTaskResponse) => {
@@ -70,48 +70,50 @@ displayedColumns: string[] = ['Title', 'Status', 'User', 'Project' ,'CreationDat
           }
         })(res)
       }, error: (err: iErrorResponse) => {
-       this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
+
+        this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       }
     })
   }
-//for paginaton 
+  //for paginaton 
   changePage(e: PageEvent) {
     this.params.pageNumber = e.pageIndex + 1;
     this.params.pageSize = e.pageSize;
     this.getAllTasks();
   }
-//for search 
-  resetSearcgInput(){
-    this.SearchValue= '';
+
+  //for search 
+  resetSearcgInput() {
+    this.SearchValue = '';
     this.getAllTasks();
   }
   //delete Task 
-  openDeleteDialog(deltedId:number) {
+  openDeleteDialog(deltedId: number) {
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {id:deltedId},
+      data: { id: deltedId },
     });
     dialogRef.afterClosed().subscribe(result => {
-  
-       console.log( result);
-       //check result 
-       if(result){
+      //check result 
+      if (result) {
         this.deleteTaskbyID(result)
-      this._helperSerivce.openSnackBar('Task has been Removed sucessfully')
-       }
-      
+      }
+
 
     });
   }
-  deleteTaskbyID(id:number){
+  deleteTaskbyID(id: number) {
     this._TasksService.onDeleteTask(id).subscribe({
-      next:(res)=>{
-        console.log(res)
+      next: (res) => {
+        // console.log(res)
+        this._helperSerivce.openSnackBar('Task has been Removed sucessfully')
       },
-      error:()=>{},
-      complete:()=>{
-         this.getAllTasks()
+      error: (err : iErrorResponse) => {
+        this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
+       },
+      complete: () => {
+        this.getAllTasks()
       },
-  
+
     })
-    }
+  }
 }

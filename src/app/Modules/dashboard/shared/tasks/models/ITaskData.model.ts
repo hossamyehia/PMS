@@ -3,7 +3,4 @@ export interface iTaskData{
     description:string
     employeeId:number,
     projectId:number,
-   
-
-
 }
