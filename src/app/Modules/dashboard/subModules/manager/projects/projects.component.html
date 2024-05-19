@@ -2,7 +2,12 @@
   <div>
     <div class="section-header withButton">
       <h2>Projects</h2>
-      <a role="button" [routerLink]="['./add']" [queryParams]="{view: false}" class="main-btn text-decoration-none">
+      <a
+        role="button"
+        [routerLink]="['./add']"
+        [queryParams]="{ view: false }"
+        class="main-btn text-decoration-none"
+      >
         <i class="fa-1x fa-light fa-plus pe-1"></i> Add New Project
       </a>
     </div>
@@ -10,16 +15,34 @@
       <mat-card>
         <mat-card-header>
           <mat-form-field appearance="outline" class="w-25">
-            <mat-label>Search</mat-label>
-            <input matInput type="text" placeholder="Search" />
             <button mat-icon-button matPrefix>
               <mat-icon>search</mat-icon>
+            </button>
+            <mat-label>Search</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Search"
+              [(ngModel)]="params.title"
+              (keyup.enter)="getProjects()"
+            />
+            <button
+              *ngIf="params.title"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="resetSearchInput()"
+            >
+              <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
         </mat-card-header>
         <mat-card-content>
           <div class="m-0 overflow-x-auto">
-            <app-table [table]="table" (operationData)="onOperation($event)"></app-table>
+            <app-table
+              [table]="table"
+              (operationData)="onOperation($event)"
+            ></app-table>
             <mat-paginator
               [length]="pagination.totalNumberOfRecords"
               [pageSize]="pagination.pageSize"

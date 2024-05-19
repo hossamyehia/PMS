@@ -63,7 +63,7 @@ export class DisplayTaskComponent {
   ) { 
     this.id = this._ActivatedRoute.snapshot.params['id'];
     this.view =this._ActivatedRoute.snapshot.params['mood']
-    console.log(this.view)
+    //console.log(this.view)
     if (this.id) {
       //edit 
       this.getTaskById(this.id);
@@ -91,7 +91,7 @@ export class DisplayTaskComponent {
   getTaskById(id: number) {
     this._TasksService.getTaskById(id).subscribe({
       next: (res) => {
-        console.log(res);
+        //console.log(res);
         this.updatingTaskData = res;
       },
       error: (err) => {
@@ -105,8 +105,6 @@ export class DisplayTaskComponent {
         description: this.updatingTaskData.description,
         employeeId: this.updatingTaskData.employee?.id,
         projectId: this.updatingTaskData.project?.id,
-        
-
       });
        
       }
@@ -134,12 +132,11 @@ export class DisplayTaskComponent {
    
       this._TasksService.onAddTask(data).subscribe( {
         next: (res) => {
-        console.log(res)
+          this._helperService.openSnackBar("Task has been added Successfully");
       }, error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
   
       }, complete: () => {
-        this._helperService.openSnackBar("Task has been added Successfully");
         this._route.navigateByUrl('/dashboard/manager/tasks')
       }
       });
@@ -149,13 +146,11 @@ export class DisplayTaskComponent {
   onEdit( id:number , tasksData: iTaskData ) {
       this._TasksService.onEditTask(id , tasksData ).subscribe({
         next: (res) => {
-          console.log(res)
+          this._helperService.openSnackBar("Task has been updated Successfully");
         }, error: (err) => {
           this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
         }, complete: () => {
-          
-        this._route.navigateByUrl('/dashboard/manager/tasks')
-          this._helperService.openSnackBar("Task has been updated Successfully");
+          this._route.navigateByUrl('/dashboard/manager/tasks')
         }
       });
     }
@@ -165,9 +160,8 @@ export class DisplayTaskComponent {
     
      this._ProjectService.getAllProjects(this.params).subscribe({
       next: (res: iProjectResponse) => {
-        console.log(res)
+        //console.log(res)
         this.Projectsdata = res.data;
-      
       }
      });
   } 
@@ -175,7 +169,7 @@ export class DisplayTaskComponent {
   getAllUsers(){
     this._TasksService.getAllUsers(this.userParams).subscribe({
       next: (res: any) => {
-        console.log(res)
+        //console.log(res)
         this.UsersData = res.data;
       }
      });
