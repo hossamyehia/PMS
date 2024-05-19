@@ -17,7 +17,9 @@ import {MatCardModule} from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatDialogModule,
     RouterModule,
-    TableModule
+    TableModule,
+    MatTableModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports:[
     CommonModule,
@@ -59,7 +64,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     NavbarComponent,
     SidebarComponent,
     RouterModule,
-    TableModule
+    TableModule,
+    MatTableModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
 })
 export class SharedModule { }
