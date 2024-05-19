@@ -7,6 +7,7 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 import { iSearchableTask } from '../../../shared/tasks/models/iSearchableTask.model';
 import { TasksService } from '../../../shared/tasks/services/tasks.service';
 import { iTaskResponse } from '../../../shared/tasks/models/iTaskResponse.model';
+import { iTask } from '../../../shared/tasks/models';
 
 
 
@@ -18,7 +19,7 @@ import { iTaskResponse } from '../../../shared/tasks/models/iTaskResponse.model'
 export class TaskesComponent {
 
   //vars
-  listOfTasks:any[] =[];
+  listOfTasks:iTask[] =[];
   StatusChanged:string ='';
   SearchValue :string = '';
   //pagination
