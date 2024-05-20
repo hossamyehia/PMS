@@ -87,9 +87,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
   .links {
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    padding-inline: 0.25em;
     a {
       color: #fff;
       text-decoration: none;
@@ -224,4 +224,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       background-color: $default-bg-color;
     }
   }
+}
+
+.d-flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.curser-pointer{
+  cursor: pointer;
+}
+
+.pointer-event-none{
+  pointer-events: none;
 }

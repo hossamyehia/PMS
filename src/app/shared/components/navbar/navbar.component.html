@@ -24,8 +24,8 @@
             </div>
           </button>
           <mat-menu #menu="matMenu">
-            <button class="menu-item" mat-menu-item>
-              Profile
+            <button class="menu-item" mat-menu-item (click)="openProfile()">
+              Account Profile
             </button>
             <button routerLink="/dashboard/changePassword"
               class="menu-item"
