@@ -27,10 +27,13 @@
       color: $header-color;
   
       border: 1px solid $header-bg-color;
+      
   
       tr {
         th {
           margin: 0 auto;
+          //change border color
+          border: 1px solid rgba(25, 61, 57, 0.9) !important;
         }
       }
     }
