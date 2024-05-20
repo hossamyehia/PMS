@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/core/services/helper/helper.service';
 import { iErrorResponse } from 'src/app/core';
 import { iResetResponse } from '../../models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,10 +23,11 @@ export class RegisterComponent {
 
   bgImagePath = "url('assets/images/bg1.png')";
 
-  constructor(private _AuthService: AuthService,private _helperSerivce: HelperService) { }
+  constructor(private _AuthService: AuthService,private _helperSerivce: HelperService, private _router:Router) { }
 
   ngOnInit(): void {
       (document.querySelector(".auth-bg") as any).style.setProperty("--imagePath", `${this.bgImagePath}`);
+      this.controlStyle();
 
       const DefaultValidators = [Validators.required];
       const PhoneNumberValidators = [...DefaultValidators, Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)]
@@ -75,16 +77,23 @@ export class RegisterComponent {
 
     if (this.registerForm.valid) {
       this._AuthService.register(data).subscribe({
-        next: (res) => {
-          console.log(res)
+        next: (res: any) => {
+          this._helperSerivce.openSnackBar(res.message);
         },
         error: (err: iErrorResponse) => {
-          console.log(this._helperSerivce.getErrorMessage(err));
-
+          this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
+        }, complete:()=>{
+          this._router.navigate(["/auth/verify"], {queryParams: {email: data.get("email")}});
         }
       })
     }
+  }
 
+  controlStyle(){
+    (document.querySelector(".width-control") as any).classList.remove("col-md-8");
+    (document.querySelector(".width-control") as any).classList.add("col-md-10");
+    (document.querySelector(".padding-control") as any).classList.remove("p-5");
+    (document.querySelector(".padding-control") as any).classList.add("p-4", "px-5");
   }
 
 }

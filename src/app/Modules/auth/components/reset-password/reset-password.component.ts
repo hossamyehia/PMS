@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { iResetResponse, iReset } from '../../models/iReset.model';
-import { iErrorResponse } from 'src/app/core';
+import { HelperService, iErrorResponse } from 'src/app/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -34,13 +35,21 @@ export class ResetPasswordComponent {
 
   bgImagePath = "url('assets/images/bg1-1.png')";
 
-  constructor(private _AuthService: AuthService) {}
+  constructor(
+    private _AuthService: AuthService,
+    private _helperSerivce: HelperService,
+    private _router: Router,
+    private _route: ActivatedRoute) {}
 
   ngOnInit(): void {
     (document.querySelector('.auth-bg') as any).style.setProperty(
       '--imagePath',
       `${this.bgImagePath}`
     );
+    let email = this._route.snapshot.queryParams?.['email']
+    if (email) this.resetForm.patchValue({
+      email: email
+    })
   }
 
   sendResetForm(): void {
@@ -48,44 +57,16 @@ export class ResetPasswordComponent {
 
     if (this.resetForm.valid) {
       this._AuthService.onReset(data).subscribe({
-        next: (response: iResetResponse) => {
-          console.log('Password reset successful', response.message);
+        next: (res: iResetResponse) => {
+          this._helperSerivce.openSnackBar(res.message);
         },
-        error: (error: iErrorResponse) => {
-          console.error('Error resetting password', error);
-          if (
-            error.error &&
-            error.error.additionalInfo &&
-            error.error.additionalInfo.errors
-          ) {
-            const errors = error.error.additionalInfo.errors;
-
-          }
+        error: (err: iErrorResponse) => {
+          this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
         },
+        complete: ()=>{
+          this._router.navigate(["/auth/login"], { queryParams: { email: data["email"] } });
+        }
       });
     }
-
-    // this._AuthService.onReset(data).subscribe({
-    //   next: (response: iResetResponse) => {
-    //     // this.statusCode = response.statusCode;
-    //     console.log('Password reset successful', response.message);
-    //   },
-    //   error: (error) => {
-    //     this.statusCode = error.status;
-    //     console.error('Error resetting password', error);
-    //     if (error.error && error.error.additionalInfo && error.error.additionalInfo.errors) {
-    //       const errors = error.error.additionalInfo.errors;
-    //       this.errorMessage = Object.entries(errors)
-    //         .map(([field, messages]) => {
-    //           if (Array.isArray(messages)) { // Type checking for messages as array
-    //             return `${field}: ${messages.join(', ')}`;
-    //           }
-    //           return `${field}: Invalid error format`; // Fallback message if not an array
-    //         })
-    //         .join('\n');
-    //     } else {
-    //       this.errorMessage = 'An unexpected error occurred.';
-    //     }
-
   }
 }
