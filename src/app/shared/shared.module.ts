@@ -20,12 +20,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
-    DeleteComponent
+    DeleteComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule ,
@@ -67,7 +69,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     TableModule,
     MatTableModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    //
+    NotFoundComponent
+
   ],
 })
 export class SharedModule { }

@@ -7,6 +7,7 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 import { iSearchableTask } from '../../../shared/tasks/models/iSearchableTask.model';
 import { TasksService } from '../../../shared/tasks/services/tasks.service';
 import { iTaskResponse } from '../../../shared/tasks/models/iTaskResponse.model';
+import { iTask } from '../../../shared/tasks/models';
 
 
 
@@ -18,7 +19,7 @@ import { iTaskResponse } from '../../../shared/tasks/models/iTaskResponse.model'
 export class TaskesComponent {
 
   //vars
-  listOfTasks:any[] =[];
+  listOfTasks:iTask[] =[];
   StatusChanged:string ='';
   SearchValue :string = '';
   //pagination
@@ -104,14 +105,15 @@ export class TaskesComponent {
   deleteTaskbyID(id: number) {
     this._TasksService.onDeleteTask(id).subscribe({
       next: (res) => {
-        // console.log(res)
-        this._helperSerivce.openSnackBar('Task has been Removed sucessfully')
+        console.log(res)
+        
       },
       error: (err : iErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
        },
       complete: () => {
-        this.getAllTasks()
+        this.getAllTasks() ;
+        this._helperSerivce.openSnackBar('Item has been deleted Sucessfully :) ')
       },
 
     })
