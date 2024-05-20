@@ -87,9 +87,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
   .links {
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    padding-inline: 0.25em;
     a {
       color: #fff;
       text-decoration: none;

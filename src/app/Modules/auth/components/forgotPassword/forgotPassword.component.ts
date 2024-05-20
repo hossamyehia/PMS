@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HelperService, iErrorResponse } from 'src/app/core';
+import { Router } from '@angular/router';
 
 
 
@@ -18,13 +20,12 @@ export class ForgotPasswordComponent implements OnInit {
 
   bgImagePath = "url('assets/images/bg3.png')";
 
-  constructor(private _AuthService:AuthService) {
+  constructor(private _AuthService:AuthService, private _helperService: HelperService, private _router: Router) {
    }
 
   ngOnInit() {
     (document.querySelector(".auth-bg") as any).style.setProperty("--imagePath", `${this.bgImagePath}`)
   }
-
   
   sendRequestForm(): void {
     const data = this.requestForm.value;
@@ -32,11 +33,13 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.requestForm.valid) {
       this._AuthService.onForget(data).subscribe({
         next: (res) => {
-          console.log(res);
+          this._helperService.openSnackBar(res.message);
         },
-        error: (err) => {
-          console.log(err);
-
+        error: (err: iErrorResponse) => {
+          this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+        },
+        complete: ()=>{
+          this._router.navigate(["/auth/reset"], { queryParams: { email: data["email"] } });
         }
       })
     }
