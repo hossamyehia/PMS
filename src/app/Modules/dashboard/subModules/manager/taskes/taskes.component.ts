@@ -105,14 +105,15 @@ export class TaskesComponent {
   deleteTaskbyID(id: number) {
     this._TasksService.onDeleteTask(id).subscribe({
       next: (res) => {
-        // console.log(res)
-        this._helperSerivce.openSnackBar('Task has been Removed sucessfully')
+        console.log(res)
+        
       },
       error: (err : iErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
        },
       complete: () => {
-        this.getAllTasks()
+        this.getAllTasks() ;
+        this._helperSerivce.openSnackBar('Item has been deleted Sucessfully :) ')
       },
 
     })

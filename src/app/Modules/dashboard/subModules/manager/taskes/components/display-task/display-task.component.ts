@@ -123,7 +123,7 @@ export class DisplayTaskComponent {
       this.onEdit(this.id, data.value);
     }
     else {
-      /// add new recipe 
+      /// add new task 
       this.onAdd(data.value);
     }
   }
@@ -132,11 +132,12 @@ export class DisplayTaskComponent {
    
       this._TasksService.onAddTask(data).subscribe( {
         next: (res) => {
-          this._helperService.openSnackBar("Task has been added Successfully");
+         
       }, error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
   
       }, complete: () => {
+        this._helperService.openSnackBar("Task has been added Successfully");
         this._route.navigateByUrl('/dashboard/manager/tasks')
       }
       });
@@ -146,11 +147,13 @@ export class DisplayTaskComponent {
   onEdit( id:number , tasksData: iTaskData ) {
       this._TasksService.onEditTask(id , tasksData ).subscribe({
         next: (res) => {
-          this._helperService.openSnackBar("Task has been updated Successfully");
+       console.log(res);
         }, error: (err) => {
           this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
         }, complete: () => {
-          this._route.navigateByUrl('/dashboard/manager/tasks')
+          this._helperService.openSnackBar("Task has been updated Successfully");
+          this._route.navigateByUrl('/dashboard/manager/tasks');
+          
         }
       });
     }
