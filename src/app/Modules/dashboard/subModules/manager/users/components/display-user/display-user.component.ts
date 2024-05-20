@@ -9,38 +9,50 @@ import { HelperService } from 'src/app/core';
   templateUrl: './display-user.component.html',
   styleUrls: ['./display-user.component.scss']
 })
-export class DisplayUserComponent {
-//   userId!:number ;
-//   userData!:IUserModel ;
-//   staticImagPath:string ='https://upskilling-egypt.com:3003/' ;
-//   dumyImage:string ='../../../../../../../../assets/images/profile.png';
-//   constructor( private _UserService:UserService , private _helperService:HelperService 
-//     ,private _ActivatedRoute:ActivatedRoute
-//   ){
-//       this.userId = this._ActivatedRoute.snapshot.params['id'];
-//   }
-//   ngOnInit(): void {
-//    this.getUserById(this.userId);
-//   }
+export class DisplayUserComponent implements OnInit {
+
+  userId!: number;
+  userData!: IUserModel;
+  staticImagPath: string = 'https://upskilling-egypt.com:3003/';
+  dumyImage: string = '../../../../../../../../assets/images/profile.jpeg'
+  newImagePath!: string;
+
+
+  constructor(private _UserService: UserService,
+    private _helperService: HelperService
+    , private _ActivatedRoute: ActivatedRoute) {
+    this.userId = this._ActivatedRoute.snapshot.params['id'];
+  }
+
+  ngOnInit(): void {
+    this.getUserById(this.userId);
+  }
 
 
 
-//   getUserById(id: number) {
-//     this._UserService.getUserById(id).subscribe({
-//       next: (res) => {
-  
-//          this.userData = res;
-//          console.log(this.userData)
-//       },
-//       error: (err) => {
-//         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-        
-//       },
-//       complete: () => {
-       
-//       }
+  getUserById(id: number) {
+    this._UserService.getUserById(id).subscribe({
+      next: (res) => {
+        this.userData = res;
+      
+        if (this.userData.imagePath == null) {
+          this.newImagePath =this.dumyImage;
+        }
+        else {
+          this.newImagePath = this.staticImagPath + this.userData.imagePath
+        }
+       // console.log(this.newImagePath)
+      },
+      error: (err) => {
+        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
 
-//     });
-//   }
-// 
+      },
+      complete: () => {
+
+      }
+
+    });
+  }
+
+
 }
