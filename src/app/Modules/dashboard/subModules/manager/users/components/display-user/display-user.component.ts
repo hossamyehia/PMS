@@ -26,18 +26,11 @@ export class DisplayUserComponent {
   getUserById(id: number) {
     this._UserService.getUserById(id).subscribe({
       next: (res) => {
-  
-         this.userData = res;
          console.log(this.userData)
       },
       error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-        
-      },
-      complete: () => {
-       
       }
-
     });
   }
 

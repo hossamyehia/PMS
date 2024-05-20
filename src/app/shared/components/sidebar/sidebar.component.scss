@@ -1,7 +1,7 @@
 .sideBar {
   $padding-right: clamp(1rem, 2.054945055vw + 1rem, 4rem);
   $margin-inline: clamp(5px, 5.054945055vw + 5px, 20px);
-  $duration: 0.25s;
+  $duration: 0.3s;
   // $timing-func-default: cubic-bezier(0.93, 0.28, 0.72, 0.71);
   $timing-func-default: linear;
 
@@ -38,21 +38,52 @@
   .icon {
     position: absolute;
     top: 5%;
-    padding: 0.25rem;
+    padding: 0.75rem 0.25rem;
+    left: 100%;
 
     background-color: hsla(35, 87%, 55%);
     color: white;
-    transition: right $duration, left $duration;
-    -webkit-transition: right $duration, left $duration;
-    -moz-transition: right $duration, left $duration;
-    transition-timing-function: $timing-func-default;
+    transition: transform $duration, left $duration, border-radius $duration;
+    -webkit-transition: transform $duration, left $duration,
+      border-radius $duration;
+    -moz-transition: transform $duration, left $duration,
+      border-radius $duration;
+
+    display: flex;
+    flex-direction: column;
+
+    span {
+      border-block: 1px solid white;
+      margin: 1px;
+      width: 8px;
+
+      transition: transform $duration;
+      -webkit-transition: transform $duration;
+      -moz-transition: transform $duration;
+      transition-timing-function: $timing-func-default;
+      &:first-of-type {
+        transform: rotate(45deg);
+      }
+      &:last-of-type {
+        transform: rotate(-45deg);
+      }
+    }
+
     &.opened {
+      transform: translateX(-95%);
       border-radius: 10px 0px 0px 10px;
-      right: 0;
+
+      span {
+        &:first-of-type {
+          transform: rotate(-45deg);
+        }
+        &:last-of-type {
+          transform: rotate(45deg);
+        }
+      }
     }
     &.closed {
       border-radius: 0px 10px 10px 0px;
-      left: 100%;
     }
   }
 

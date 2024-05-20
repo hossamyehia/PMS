@@ -130,13 +130,13 @@
                   <td mat-cell *matCellDef="let element">
                     <span
                       class="status active"
-                      *ngIf="element.isActivated == true"
+                      *ngIf="element.isActivated"
                     >
                       Active
                     </span>
                     <span
                       class="status notActive"
-                      *ngIf="element.isActivated == false"
+                      *ngIf="!element.isActivated"
                     >
                       Not Active
                     </span>
