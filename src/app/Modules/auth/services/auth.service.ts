@@ -14,10 +14,6 @@ export class AuthService {
     return this._httpClient.post("Users/Login", data);
   }
 
-  getCurrentUser(){
-    return this._httpClient.get(`Users/currentUser`);
-  }
-
   register( data : FormData){
     return this._httpClient.post("Users/Register", data);
   }
