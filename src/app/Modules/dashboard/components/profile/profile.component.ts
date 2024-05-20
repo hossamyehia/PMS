@@ -1,51 +1,49 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HelperService } from 'src/app/core/services/helper/helper.service';
-import { iErrorResponse } from 'src/app/core';
-import { iResetResponse } from '../../models';
-import { Router } from '@angular/router';
+import { ProfileService } from '../../services/profile/profile.service';
+import { HelperService, iErrorResponse } from 'src/app/core';
+import { iUser } from '../../model/iUser.model';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class RegisterComponent {
+export class ProfileComponent {
 
-  hide: boolean = true;
+  onView: boolean = true;
   hideConfirm: boolean = true;
 
+  BaseUrl = "https://upskilling-egypt.com:3003/";
   image!: File;
-  url!: any;
+  imageSrc!: any;
   
-  registerForm!: FormGroup;
+  profileForm!: FormGroup;
 
-  bgImagePath = "url('assets/images/bg1.png')";
-
-  constructor(private _AuthService: AuthService,private _helperSerivce: HelperService, private _router:Router) { }
+  constructor(private _profileService: ProfileService,private _helperSerivce: HelperService) { }
 
   ngOnInit(): void {
-      (document.querySelector(".auth-bg") as any).style.setProperty("--imagePath", `${this.bgImagePath}`);
-      this.controlStyle();
 
       const DefaultValidators = [Validators.required];
       const PhoneNumberValidators = [...DefaultValidators, Validators.pattern(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)]
       const EmailValidators = [...DefaultValidators, Validators.email];
       const PasswordValidators = [...DefaultValidators, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$/)];
 
-      this.registerForm = new FormGroup({
+      this.profileForm = new FormGroup({
         userName: new FormControl('', DefaultValidators),
         email: new FormControl('', EmailValidators),
         country: new FormControl('', DefaultValidators),
         phoneNumber: new FormControl('', PhoneNumberValidators),
-        password: new FormControl('', PasswordValidators),
         confirmPassword: new FormControl('', PasswordValidators),
         profileImage: new FormControl(null)
       })
+
+      this.getProfile();
   }
 
   onSelect(event: any) {
+    if(this.onView) return;
+
     const files = event.target.files;
     if (files.length === 0)
         return;
@@ -60,40 +58,50 @@ export class RegisterComponent {
     this.image = files[0];
     reader.readAsDataURL(files[0]); 
     reader.onload = (_event) => { 
-        this.url = reader.result; 
+        this.imageSrc = reader.result; 
     }
   }
 
+  getProfile(){
+    this._profileService.getProfile().subscribe({
+      next: (res: iUser) => {
+        this.profileForm.patchValue(res);
 
-  sendRegisterForm(): void {
+        this.imageSrc =  this.BaseUrl + res.imagePath;
+      },
+      error: (err: iErrorResponse) => {
+        this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
+      }
+    })
+  }
+
+
+  onSubmit(): void {
     const data = new FormData();
 
-    for (let key in this.registerForm.value) {
+    for (let key in this.profileForm.value) {
       if (key === "profileImage") continue;
-      data.append(key, this.registerForm.value[key]);
+      data.append(key, this.profileForm.value[key]);
     }
 
     if (this.image) data.append("profileImage", this.image);
 
-    if (this.registerForm.valid) {
-      this._AuthService.register(data).subscribe({
-        next: (res: any) => {
-          this._helperSerivce.openSnackBar(res.message);
+    if (this.profileForm.valid) {
+      this._profileService.updateProfile(data).subscribe({
+        next: (res) => {
+          //console.log(res)
+          this._helperSerivce.openSnackBar("Updated Successfully");
         },
         error: (err: iErrorResponse) => {
           this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
-        }, complete:()=>{
-          this._router.navigate(["/auth/verify"], {queryParams: {email: data.get("email")}});
         }
       })
     }
   }
 
-  controlStyle(){
-    (document.querySelector(".width-control") as any).classList.remove("col-md-8");
-    (document.querySelector(".width-control") as any).classList.add("col-md-10");
-    (document.querySelector(".padding-control") as any).classList.remove("p-5");
-    (document.querySelector(".padding-control") as any).classList.add("p-4", "px-5");
+
+  toggleEdit(){
+    this.onView = !this.onView;
   }
 
 }

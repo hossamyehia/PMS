@@ -4,7 +4,7 @@
       <th *ngFor="let header of table.colDefs" class="fluid-padding">
         {{ header.headerName || header.field }}
       </th>
-      <th class="fluid-padding"></th>
+      <th class="fluid-padding" *ngIf="table.operators && table.operators.length"></th>
     </tr>
   </thead>
   <tbody class="tableBody">
@@ -14,7 +14,7 @@
           {{ getValue(row, col) }}
         </td>
 
-        <td class="fluid-md-padding">
+        <td class="fluid-md-padding" *ngIf="table.operators && table.operators.length">
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
             <mat-icon>more_vert</mat-icon>
           </button>

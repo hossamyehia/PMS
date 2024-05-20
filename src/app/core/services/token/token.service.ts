@@ -62,6 +62,6 @@ export class TokenService {
 
   public routeTologin() {
     this.router.navigate(["/auth/login"]);
-    window.location.reload();
+    //window.location.reload();
   }
 }
