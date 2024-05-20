@@ -1,0 +1,31 @@
+img{
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50% !important;
+}
+.main-btn {
+    border: none;
+    padding: 15px;
+    color: #fff;
+    background-color: #ef9b28;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.4s;
+    &:hover {
+      opacity: 0.8;
+    }
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+  span{
+    color:#ef9b28
+  }
+
+  .active{
+    color: rgba(0, 146, 71, 1);
+    ;
+   }
+   .notActive{
+  color: rgba(146, 46, 37, 0.7)
+   }
