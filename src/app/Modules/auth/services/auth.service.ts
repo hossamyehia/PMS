@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { iForget, iLogin, iReset, iResetResponse, iVerify } from '../models';
 import { Observable } from 'rxjs';
+import { IchangePassword } from '../models/iChangePass.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +37,9 @@ export class AuthService {
   // onReset(data: iReset): Observable<iResetResponse>{
   //   return this._httpClient.post<iResetResponse>("Users/Reset", data);
   // }
+
+  //changepassword
+  onChangePassword(data: IchangePassword): Observable<any>{
+    return this._httpClient.put("Users/ChangePassword", data);
+  }
 }
