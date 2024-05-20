@@ -225,3 +225,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
   }
 }
+
+.d-flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.curser-pointer{
+  cursor: pointer;
+}
+
+.pointer-event-none{
+  pointer-events: none;
+}
