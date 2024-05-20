@@ -24,7 +24,8 @@ export class UserService {
   getUserById(id: number): Observable<IUserModel>{
     return this._httpClient.get<IUserModel>(`Users/${id}`);
   }
-  onDeleteUser(id:number){
-    return this._httpClient.delete(`Users/${id}`);
+
+  onToggleActivation(id:number){
+    return this._httpClient.put(`Users/${id}`, {});
   }
 }

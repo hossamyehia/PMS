@@ -3,10 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { iPage, HelperService, iErrorResponse } from 'src/app/core';
-import { iUserResponse } from '../../../shared/users/models/iUserResponse.model';
-import { iSearchableUser } from '../../../shared/users/models/iSearchableUser.model';
-import { UserService } from '../../../shared/users/services/user.service';
-import { IUserModel } from '../../../shared/users/models';
+import { iUserResponse } from './models/iUserResponse.model';
+import { iSearchableUser } from './models/iSearchableUser.model';
+import { UserService } from './services/user.service';
+import { IUserModel } from './models';
 
 @Component({
   selector: 'app-users',
@@ -16,11 +16,11 @@ import { IUserModel } from '../../../shared/users/models';
 export class UsersComponent implements OnInit {
 
   //vars
-  listOfUsers:IUserModel[] =[];
-  StatusChanged:string ='';
-  SearchValue :string = '';
-  serachByID:string =''
-  groupsID:string ='';
+  listOfUsers: IUserModel[] = [];
+  StatusChanged: string = '';
+  SearchValue: string = '';
+  searchBy: "userName"| "email" | "country" | '' = ''
+  groupsID: string = '';
 
   //pagination
   pagination: iPage = {
@@ -30,22 +30,21 @@ export class UsersComponent implements OnInit {
     totalNumberOfPages: 0,
   }
 
-    params: iSearchableUser = {
-      userName: "",
-      email:"",
-      country:"",
-     groups:"",
+  params: iSearchableUser = {
+    userName: "",
+    email: "",
+    country: "",
+    groups: "",
     pageSize: this.pagination.pageSize,
     pageNumber: this.pagination.pageNumber,
   };
-  
-//table
-displayedColumns: string[] = ['User Name', 'Status', 'Phone Number', 'Email' ,'Country','CreationDate' ,'Action'];
 
+  //table
+  displayedColumns: string[] = ['User Name', 'Status', 'Phone Number', 'Email', 'Country', 'CreationDate', 'Action'];
 
   constructor(
-    private _UserService:UserService,
-    private _helperSerivce: HelperService, 
+    private _UserService: UserService,
+    private _helperSerivce: HelperService,
     private _Router: Router,
     public dialog: MatDialog) { }
 
@@ -54,24 +53,14 @@ displayedColumns: string[] = ['User Name', 'Status', 'Phone Number', 'Email' ,'C
   }
 
   getAllUsers() {
-    //define params
-    this.params.groups= [this.groupsID];
-    
-    if(this.serachByID === 'name'){
-      this.params.userName =this.SearchValue;
-    }
-     if(this.serachByID === 'email'){
-      this.params.email =this.SearchValue;
-    }
-     if(this.serachByID === 'country'){
-      this.params.country =this.SearchValue;
-    }
-    
+    this.params = {
+      ...this.params,
+      groups: [this.groupsID],
+      [this.searchBy]: this.SearchValue,
+    };
 
-   
     this._UserService.getAllUsers(this.params).subscribe({
       next: (res: iUserResponse) => {
-        console.log(res)
         this.listOfUsers = res.data;
         this.pagination = (({ pageSize,
           pageNumber,
@@ -85,24 +74,48 @@ displayedColumns: string[] = ['User Name', 'Status', 'Phone Number', 'Email' ,'C
           }
         })(res)
       }, error: (err: iErrorResponse) => {
-       this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
-      },
-      complete:()=>{
-
+        this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       }
     })
   }
-//for paginaton 
+
+  toggleStatus(id: number){
+    this._UserService.onToggleActivation(id).subscribe({
+      next: (res: any) => {
+        this._helperSerivce.openSnackBar("Operation Success")
+      }, error: (err: iErrorResponse) => {
+        this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
+      },
+      complete: ()=>{
+        this.getAllUsers();
+      }
+    })
+  }
+
+  //for paginaton 
   changePage(e: PageEvent) {
     this.params.pageNumber = e.pageIndex + 1;
     this.params.pageSize = e.pageSize;
     this.getAllUsers();
   }
-//for search 
-  resetSearcgInput(){
-    this.SearchValue= '';
+  //for search 
+  resetSearchInput() {
+    this.SearchValue = '';
+    this.params = {
+      ...this.params,
+      [this.searchBy]: ''
+    }
     this.getAllUsers();
   }
 
- 
+  resetParams(){
+    this.params = {
+      ...this.params,
+      userName: '',
+      country: '',
+      email: '',
+      [this.searchBy]: this.SearchValue
+    }
+  }
+
 }
