@@ -149,7 +149,7 @@ export class ProjectsComponent implements OnInit {
 
   deleteDialog(row: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: { id: row.id },
+      data: { id: row.id , name:row.title },
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -11,7 +11,7 @@ import { iTask } from 'src/app/Modules/dashboard/shared/tasks/models';
 import { iTaskData } from 'src/app/Modules/dashboard/shared/tasks/models/ITaskData.model';
 import { TasksService } from 'src/app/Modules/dashboard/shared/tasks/services/tasks.service';
 import { HelperService } from 'src/app/core';
-
+import { UserService } from '../../../users/services/user.service';
 
 
 @Component({
@@ -21,12 +21,12 @@ import { HelperService } from 'src/app/core';
 })
 export class DisplayTaskComponent {
 
-  view!: string ;
-  disabledView =false;
+  view!: string;
+  disabledView = false;
   id!: number;
   //////
-  pageSize =1000 ;
-  pageNumber =1 ;
+  pageSize = 1000;
+  pageNumber = 1;
   //for getting all projects
   params: iSearchableProject = {
     title: "",
@@ -40,29 +40,31 @@ export class DisplayTaskComponent {
     pageNumber: this.pageNumber,
   };///////data 
 
-  Projectsdata:iProject[] =[];
-  UsersData:iUser[]=[];
+  Projectsdata: iProject[] = [];
+  UsersData: iUser[] = [];
   ///for updating task
-  updatingTaskData!:iTask;
-///form 
+  updatingTaskData!: iTask;
+  ///form 
   taskForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    employeeId :new FormControl('', [Validators.required]),
-    projectId :new FormControl('', [Validators.required]),
+    employeeId: new FormControl('', [Validators.required]),
+    projectId: new FormControl('', [Validators.required]),
   });
-//auto complete project 
+  //auto complete project 
 
- 
+
 
 
   constructor(
-    private _ProjectService: ProjectService,private _TasksService:TasksService,
+    private _ProjectService: ProjectService,
+    private _TasksService: TasksService,
+    private _UserService: UserService,
     private _route: Router,
-    private _helperService: HelperService ,private _ActivatedRoute: ActivatedRoute
-  ) { 
+    private _helperService: HelperService, private _ActivatedRoute: ActivatedRoute
+  ) {
     this.id = this._ActivatedRoute.snapshot.params['id'];
-    this.view =this._ActivatedRoute.snapshot.params['mood']
+    this.view = this._ActivatedRoute.snapshot.params['mood']
     //console.log(this.view)
     if (this.id) {
       //edit 
@@ -70,8 +72,8 @@ export class DisplayTaskComponent {
 
     }
     // to remove save button in view mode and disable the fields 
-    if(this.view){
-     this.disabledView=true
+    if (this.view) {
+      this.disabledView = true
     }
 
   }
@@ -81,7 +83,7 @@ export class DisplayTaskComponent {
     this.getAllUsers();
     //
 
-   
+
   }
 
 
@@ -96,17 +98,17 @@ export class DisplayTaskComponent {
       },
       error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-        
+
       },
       complete: () => {
-      //patching values
-      this.taskForm.patchValue({
-        title: this.updatingTaskData.title,
-        description: this.updatingTaskData.description,
-        employeeId: this.updatingTaskData.employee?.id,
-        projectId: this.updatingTaskData.project?.id,
-      });
-       
+        //patching values
+        this.taskForm.patchValue({
+          title: this.updatingTaskData.title,
+          description: this.updatingTaskData.description,
+          employeeId: this.updatingTaskData.employee?.id,
+          projectId: this.updatingTaskData.project?.id,
+        });
+
       }
 
     });
@@ -115,68 +117,70 @@ export class DisplayTaskComponent {
 
 
 
-  onSubmit(data:FormGroup) {
+  onSubmit() {
     //console.log(data.value)
- 
+    let taskData = this.taskForm.value;
+    console.log(taskData)
     if (this.id) {
       // -update  
-      this.onEdit(this.id, data.value);
+      this.onEdit(this.id, taskData);
     }
     else {
       /// add new task 
-      this.onAdd(data.value);
+      this.onAdd(taskData);
     }
   }
 
-  onAdd(data:iTaskData): void {
-   
-      this._TasksService.onAddTask(data).subscribe( {
-        next: (res) => {
-         
+  onAdd(data: iTaskData): void {
+
+    this._TasksService.onAddTask(data).subscribe({
+      next: (res) => {
+        console.log(res)
       }, error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-  
+
       }, complete: () => {
         this._helperService.openSnackBar("Task has been added Successfully");
-        this._route.navigateByUrl('/dashboard/manager/tasks')
+        this._route.navigateByUrl('/dashboard/manager/tasks');
+
       }
-      });
-    
+    });
+
   }
 
-  onEdit( id:number , tasksData: iTaskData ) {
-      this._TasksService.onEditTask(id , tasksData ).subscribe({
-        next: (res) => {
-       console.log(res);
-        }, error: (err) => {
-          this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-        }, complete: () => {
-          this._helperService.openSnackBar("Task has been updated Successfully");
-          this._route.navigateByUrl('/dashboard/manager/tasks');
-          
-        }
-      });
-    }
-  
+  onEdit(id: number, tasksData: iTaskData) {
+    this._TasksService.onEditTask(id, tasksData).subscribe({
+      next: (res) => {
+        console.log(res);
+      }, error: (err) => {
+        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+      }, complete: () => {
+        this._helperService.openSnackBar("Task has been updated Successfully");
+        this._route.navigateByUrl('/dashboard/manager/tasks');
+
+      }
+    });
+  }
+
 
   getAllProject() {
-    
-     this._ProjectService.getAllProjects(this.params).subscribe({
+
+    this._ProjectService.getAllProjects(this.params).subscribe({
       next: (res: iProjectResponse) => {
         //console.log(res)
         this.Projectsdata = res.data;
       }
-     });
-  } 
+    });
+  }
   //need to be edited
-  getAllUsers(){
-    this._TasksService.getAllUsers(this.userParams).subscribe({
+  getAllUsers() {
+    this._UserService.getAllUsers(this.userParams).subscribe({
       next: (res: any) => {
         //console.log(res)
         this.UsersData = res.data;
       }
-     });
-  } 
-  
-    
+    });
+  }
+
+
 }

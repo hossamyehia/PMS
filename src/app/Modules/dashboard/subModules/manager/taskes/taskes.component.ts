@@ -59,6 +59,8 @@ export class TaskesComponent {
       next: (res: iTaskResponse) => {
         //console.log(res)
         this.listOfTasks = res.data;
+        console.log(this.listOfTasks);
+        
         this.pagination = (({ pageSize,
           pageNumber,
           totalNumberOfRecords,
@@ -89,9 +91,9 @@ export class TaskesComponent {
     this.getAllTasks();
   }
   //delete Task 
-  openDeleteDialog(deltedId: number) {
+  openDeleteDialog(deltedId: number , taskName:string) {
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: { id: deltedId },
+      data: { id: deltedId  , name:taskName},
     });
     dialogRef.afterClosed().subscribe(result => {
       //check result 
