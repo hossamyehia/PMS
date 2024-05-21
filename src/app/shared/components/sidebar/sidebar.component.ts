@@ -50,7 +50,7 @@ export class SidebarComponent {
     {
       text: 'Tasks',
       icon: 'fa-thin fa-list-check',
-      link: '/dashboard/employee/tasks',
+      link: '/dashboard/employee/task-board',
       isActive: this._TokenService.isEmployee()
     },
   ]
