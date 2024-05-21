@@ -11,7 +11,7 @@
       <h2>Projects</h2>
     </div>
     <form [formGroup]="ProjectForm" (ngSubmit)="onSubmit()" class="p-4">
-      <mat-card>
+      <mat-card class="p-3">
         <mat-card-content>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Title</mat-label>
@@ -44,7 +44,7 @@
               type="text"
               placeholder="Enter Your Description"
               [readonly]="view === 'true'"
-              [rows]="9"
+              [rows]="6"
             ></textarea>
             <mat-hint
               *ngIf="
