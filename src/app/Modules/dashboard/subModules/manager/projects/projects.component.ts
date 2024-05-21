@@ -28,14 +28,14 @@ export class ProjectsComponent implements OnInit {
         headerName: "Description",
       },
       {
-        headerName: "Num Tasks",
+        headerName: "Num tasks",
         valueGetter: (row: any)=>{
           return row.task.length;
         }
       },
       {
         field: "creationDate",
-        headerName: "Created At",
+        headerName: "Created at",
         valueFormatter: (value: string): string => {
           let pipe = new DatePipe("en")
           return pipe.transform(value, 'fullDate') as string;
@@ -43,15 +43,17 @@ export class ProjectsComponent implements OnInit {
       },
       {
         field: "modificationDate",
-        headerName: "Modified At",
+        headerName: "Modified at",
         valueFormatter: (value: string): string => {
           let pipe = new DatePipe("en")
           return pipe.transform(value, 'fullDate') as string;
         }
       },
+     
     ],
     data: [],
     operators: [
+     
       {
         title: "View",
         icon: 'visibility',
