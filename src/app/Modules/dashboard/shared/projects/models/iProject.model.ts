@@ -1,12 +1,12 @@
-import { iManager } from "../../../subModules/manager/models/iManager.model";
-import { iTask } from "../../tasks/models";
+import { IManager } from "../../../subModules/manager/models/iManager.model";
+import { ITask } from "../../tasks/models";
 
-export interface iProject {
+export interface IProject {
     id?: number;
     title: string;
     description: string,
     creationDate?: Date,
     modificationDate?: Date;
-    manager?: iManager;
-    task?: iTask[];
+    manager?: IManager;
+    task?: ITask[];
 }

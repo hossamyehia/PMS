@@ -4,14 +4,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Observable, map, startWith } from 'rxjs';
-import { iUser } from 'src/app/Modules/dashboard/model/iUser.model';
-import { iProject, iProjectResponse, iSearchableProject } from 'src/app/Modules/dashboard/shared/projects/models';
+import { IUser } from 'src/app/Modules/dashboard/model/iUser.model';
+import { IProject, IProjectResponse, ISearchableProject } from 'src/app/Modules/dashboard/shared/projects/models';
 import { ProjectService } from 'src/app/Modules/dashboard/shared/projects/services/project.service';
-import { iTask } from 'src/app/Modules/dashboard/shared/tasks/models';
-import { iTaskData } from 'src/app/Modules/dashboard/shared/tasks/models/ITaskData.model';
+
 import { TasksService } from 'src/app/Modules/dashboard/shared/tasks/services/tasks.service';
 import { HelperService } from 'src/app/core';
 import { UserService } from '../../../users/services/user.service';
+import { ITask } from 'src/app/Modules/dashboard/shared/tasks/models';
+import { ITaskData } from 'src/app/Modules/dashboard/shared/tasks/models/ITaskData.model';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class DisplayTaskComponent {
   pageSize = 1000;
   pageNumber = 1;
   //for getting all projects
-  params: iSearchableProject = {
+  params: ISearchableProject = {
     title: "",
     pageSize: this.pageSize,
     pageNumber: this.pageNumber,
@@ -40,10 +41,10 @@ export class DisplayTaskComponent {
     pageNumber: this.pageNumber,
   };///////data 
 
-  Projectsdata: iProject[] = [];
-  UsersData: iUser[] = [];
+  Projectsdata: IProject[] = [];
+  UsersData: IUser[] = [];
   ///for updating task
-  updatingTaskData!: iTask;
+  updatingTaskData!: ITask;
   ///form 
   taskForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -130,7 +131,7 @@ export class DisplayTaskComponent {
     }
   }
 
-  onAdd(data:iTaskData): void {
+  onAdd(data:ITaskData): void {
    
       this._TasksService.onAddTask(data).subscribe( {
         next: (res) => {
@@ -146,7 +147,7 @@ export class DisplayTaskComponent {
     
   }
 
-  onEdit( id:number , tasksData: iTaskData ) {
+  onEdit( id:number , tasksData: ITaskData ) {
       this._TasksService.onEditTask(id , tasksData ).subscribe({
         next: (res) => {
           console.log(res)
@@ -164,7 +165,7 @@ export class DisplayTaskComponent {
   getAllProject() {
 
     this._ProjectService.getAllProjects(this.params).subscribe({
-      next: (res: iProjectResponse) => {
+      next: (res: IProjectResponse) => {
         //console.log(res)
         this.Projectsdata = res.data;
       }

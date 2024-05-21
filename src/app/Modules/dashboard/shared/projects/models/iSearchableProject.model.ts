@@ -1,5 +1,5 @@
-import { iPage } from "src/app/core";
+import { IPage } from "src/app/core";
 
-export interface iSearchableProject extends iPage{
+export interface ISearchableProject extends IPage{
     title: string;
 }

@@ -1,7 +1,7 @@
-import { iPage } from "src/app/core";
-import { iTask } from "./iTask.model";
+import { IPage } from "src/app/core";
+import { ITask } from "./iTask.model";
 
 
-export interface iTaskResponse extends iPage{
-    data: iTask[];
+export interface ITaskResponse extends IPage{
+    data: ITask[];
 }

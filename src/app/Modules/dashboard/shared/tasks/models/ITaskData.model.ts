@@ -1,4 +1,4 @@
-export interface iTaskData{
+export interface ITaskData{
     title:string,
     description:string
     employeeId:number,

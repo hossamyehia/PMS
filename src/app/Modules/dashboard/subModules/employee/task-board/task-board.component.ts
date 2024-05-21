@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { iTask } from '../../../shared/tasks/models';
+import { ITask } from '../../../shared/tasks/models';
 import { TaskBoardService } from '../services/task-board.service';
 import { HelperService } from 'src/app/core';
 import { ItaskBoard } from '../model/taskBoard.model';
@@ -13,7 +13,7 @@ export class TaskBoardComponent implements OnInit {
 
 //vars
 
-  listOfTasks:iTask[] =[];
+  listOfTasks:ITask[] =[];
   currentTask :any ;
 
   constructor(private _TaskBoardService:TaskBoardService ,private _HelperService:HelperService

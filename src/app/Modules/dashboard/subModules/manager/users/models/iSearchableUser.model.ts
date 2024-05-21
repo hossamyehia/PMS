@@ -1,6 +1,6 @@
-import { iPage } from "src/app/core";
+import { IPage } from "src/app/core";
 
-export interface iSearchableUser extends iPage{
+export interface ISearchableUser extends IPage{
     userName?: string;
     email?:string;
     country?:string;
