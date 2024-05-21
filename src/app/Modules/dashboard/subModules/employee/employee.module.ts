@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeComponent } from './employee.component';
 import { TaskBoardComponent } from './task-board/task-board.component';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import { TaskBoardComponent } from './task-board/task-board.component';
   ],
   imports: [
     CommonModule,
-    EmployeeRoutingModule
+    EmployeeRoutingModule,
+    SharedModule,
+    DragDropModule
   ]
 })
 export class EmployeeModule { }
