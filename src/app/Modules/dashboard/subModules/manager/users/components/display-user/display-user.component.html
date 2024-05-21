@@ -76,7 +76,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Creation date</mat-label>
             <input
-              value="{{userData.creationDate|date}}"
+              value="{{userData.creationDate| date:'fullDate'}}"
               readonly="true"
               matInput />
           </mat-form-field>

@@ -35,7 +35,7 @@ export class ProjectsComponent implements OnInit {
       },
       {
         field: "creationDate",
-        headerName: "Created at",
+        headerName: "Creation date",
         valueFormatter: (value: string): string => {
           let pipe = new DatePipe("en")
           return pipe.transform(value, 'fullDate') as string;
@@ -43,7 +43,7 @@ export class ProjectsComponent implements OnInit {
       },
       {
         field: "modificationDate",
-        headerName: "Modified at",
+        headerName: "Modification date",
         valueFormatter: (value: string): string => {
           let pipe = new DatePipe("en")
           return pipe.transform(value, 'fullDate') as string;
