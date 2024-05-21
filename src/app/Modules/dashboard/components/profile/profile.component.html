@@ -6,19 +6,19 @@
           <i class="fa-1x fa-light fa-arrow-left pe-1"></i>
           Return Home
         </a>
-        <h2>Account Profile</h2>
+        <h2>Account profile</h2>
       </div>
       <button type="button" (click)="toggleEdit()" class="main-btn">
         <i class="fa-1x fa-light fa-pen-to-square pe-1"></i>
-        {{ onView ? "Enable" : "Disable" }} Edit
+        {{ onView ? "Enable" : "Disable" }} edit
       </button>
     </div>
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="p-2">
-      <mat-card>
+      <mat-card class="p-3 m-3">
         <mat-card-content>
           <div class="d-flex-center w-100 mb-2">
-            <div
-              class="d-flex-center position-relative border rounded-circle overflow-hidden"
+            <div 
+              class="d-flex-center position-relative border rounded-circle overflow-hidden  mb-3"
             >
               <label
                 for="Image"
@@ -47,7 +47,7 @@
             <div class="col-md-6">
               <div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>User Name</mat-label>
+                  <mat-label>User name</mat-label>
                   <input
                     formControlName="userName"
                     [readonly]="onView"
@@ -88,7 +88,7 @@
             <div class="col-md-6">
               <div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Phone Number</mat-label>
+                  <mat-label>Phone number</mat-label>
                   <input
                     formControlName="phoneNumber"
                     [readonly]="onView"
@@ -103,7 +103,7 @@
             <div class="col-md-6">
               <div>
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Confirm Password</mat-label>
+                  <mat-label>Confirm password</mat-label>
                   <input
                     formControlName="confirmPassword"
                     matInput
