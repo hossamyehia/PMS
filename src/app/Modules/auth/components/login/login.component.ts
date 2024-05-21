@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { TokenService } from 'src/app/core';
-import { Router, RouterLink } from '@angular/router';
+import { HelperService, TokenService } from 'src/app/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +19,21 @@ export class LoginComponent implements OnInit {
   })
 
   bgImagePath = "url('assets/images/bg3.png')";
-  
-  constructor(private _AuthService: AuthService, private _TokenService:TokenService,
-    private _Router:Router
+
+  constructor(
+    private _AuthService: AuthService, 
+    private _TokenService: TokenService,
+    private _helperSerivce: HelperService,
+    private _Router: Router,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-      (document.querySelector(".auth-bg") as any).style.setProperty("--imagePath", `${this.bgImagePath}`)
-
+    (document.querySelector(".auth-bg") as any).style.setProperty("--imagePath", `${this.bgImagePath}`)
+    let email = this._route.snapshot.queryParams?.['email']
+    if (email) this.loginForm.patchValue({
+      email: email
+    })
   }
 
   sendLoginForm(): void {
@@ -35,13 +42,13 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this._AuthService.login(data).subscribe({
         next: (res) => {
-          console.log(res);
+          this._helperSerivce.openSnackBar("Login Success");
           this._TokenService.setToken(res);
         },
         error: (err) => {
-          console.log(err);
+          this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
         },
-        complete:()=>{
+        complete: () => {
           this._Router.navigate(['/dashboard'])
         }
       })

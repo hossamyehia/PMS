@@ -32,9 +32,9 @@ export class GeneralInterceptor implements HttpInterceptor {
     // return next.handle(request)
     return next.handle(request).pipe(
       catchError((err) => {
-        if (err.status === 401) {
-          this._tokenService.logout();
-        }
+        // if (err.status === 401) {
+        //   this._tokenService.logout();
+        // }
         //const error = err.error || err.statusText;
         return throwError(() => err);
       })

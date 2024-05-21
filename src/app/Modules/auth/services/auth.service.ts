@@ -14,10 +14,6 @@ export class AuthService {
     return this._httpClient.post("Users/Login", data);
   }
 
-  getCurrentUser(){
-    return this._httpClient.get(`Users/currentUser`);
-  }
-
   register( data : FormData){
     return this._httpClient.post("Users/Register", data);
   }
@@ -33,7 +29,5 @@ export class AuthService {
   onReset(data: iReset): Observable<any>{
     return this._httpClient.post("Users/Reset", data);
   }
-  // onReset(data: iReset): Observable<iResetResponse>{
-  //   return this._httpClient.post<iResetResponse>("Users/Reset", data);
-  // }
+
 }

@@ -18,13 +18,17 @@ import {MatCardModule} from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
-    DeleteComponent
+    DeleteComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule ,
@@ -42,7 +46,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
     RouterModule,
     TableModule,
-
+    MatTableModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports:[
     CommonModule,
@@ -62,6 +68,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     SidebarComponent,
     RouterModule,
     TableModule,
+    MatTableModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    NotFoundComponent
   ],
 })
 export class SharedModule { }

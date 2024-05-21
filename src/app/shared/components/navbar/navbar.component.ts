@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/Modules/auth/services/auth.service';
+import { Router } from '@angular/router';
+import { ProfileService } from 'src/app/Modules/dashboard/services/profile/profile.service';
 import { TokenService } from 'src/app/core';
 
 @Component({
@@ -14,11 +15,13 @@ export class NavbarComponent {
   userData!: any;
   imgUrl: string = "";
   dummyImage: string = "assets/images/profile-user.png";
-  BaseUrl = "https://upskilling-egypt.com:3003/"
+  BaseUrl = "https://upskilling-egypt.com:3003/";
 
   constructor(
     private _tokenService: TokenService,
-    private _authservice: AuthService) {
+    private _profileService: ProfileService,
+    private _router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class NavbarComponent {
   }
 
   getImageUrl() {
-    this._authservice.getCurrentUser().subscribe({
+    this._profileService.getProfile().subscribe({
       next: (res: any) => {
         this.userData = res;
         this.imgUrl = this.BaseUrl + res.imagePath;
@@ -37,6 +40,10 @@ export class NavbarComponent {
         console.log(err);
       }
     })
+  }
+
+  openProfile(){
+    this._router.navigate(["/dashboard/profile"]);
   }
 
 

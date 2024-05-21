@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { iProject } from 'src/app/Modules/dashboard/shared/projects/models';
 import { ProjectService } from 'src/app/Modules/dashboard/shared/projects/services/project.service';
 import { HelperService } from 'src/app/core';
@@ -25,6 +25,7 @@ export class ProjectFormComponent {
 
   constructor(
     private _ProjectService: ProjectService,
+    private _router : Router,
     private _route: ActivatedRoute,
     private _helperService: HelperService
   ) { }
@@ -55,6 +56,8 @@ export class ProjectFormComponent {
       },
       error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+      }, complete: ()=>{
+        this._router.navigateByUrl('/dashboard/manager/projects')
       }
     })
   }
@@ -66,6 +69,8 @@ export class ProjectFormComponent {
       },
       error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+      }, complete: ()=>{
+        this._router.navigateByUrl('/dashboard/manager/projects')
       }
     })
   }
