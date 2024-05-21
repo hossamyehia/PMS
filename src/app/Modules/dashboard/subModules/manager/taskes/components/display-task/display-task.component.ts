@@ -64,7 +64,7 @@ export class DisplayTaskComponent {
     private _helperService: HelperService, private _ActivatedRoute: ActivatedRoute
   ) {
     this.id = this._ActivatedRoute.snapshot.params['id'];
-    this.view = this._ActivatedRoute.snapshot.params['mood']
+    this.view = this._ActivatedRoute.snapshot.params['mode']
     //console.log(this.view)
     if (this.id) {
       //edit 
@@ -117,50 +117,48 @@ export class DisplayTaskComponent {
 
 
 
-  onSubmit() {
+  onSubmit(data:FormGroup) {
     //console.log(data.value)
-    let taskData = this.taskForm.value;
-    console.log(taskData)
+ 
     if (this.id) {
       // -update  
-      this.onEdit(this.id, taskData);
+      this.onEdit(this.id, data.value);
     }
     else {
-      /// add new task 
-      this.onAdd(taskData);
+      /// add new recipe 
+      this.onAdd(data.value);
     }
   }
 
-  onAdd(data: iTaskData): void {
-
-    this._TasksService.onAddTask(data).subscribe({
-      next: (res) => {
+  onAdd(data:iTaskData): void {
+   
+      this._TasksService.onAddTask(data).subscribe( {
+        next: (res) => {
         console.log(res)
       }, error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-
+  
       }, complete: () => {
         this._helperService.openSnackBar("Task has been added Successfully");
-        this._route.navigateByUrl('/dashboard/manager/tasks');
-
+        this._route.navigateByUrl('/dashboard/manager/tasks')
       }
-    });
-
+      });
+    
   }
 
-  onEdit(id: number, tasksData: iTaskData) {
-    this._TasksService.onEditTask(id, tasksData).subscribe({
-      next: (res) => {
-        console.log(res);
-      }, error: (err) => {
-        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-      }, complete: () => {
-        this._helperService.openSnackBar("Task has been updated Successfully");
-        this._route.navigateByUrl('/dashboard/manager/tasks');
-
-      }
-    });
-  }
+  onEdit( id:number , tasksData: iTaskData ) {
+      this._TasksService.onEditTask(id , tasksData ).subscribe({
+        next: (res) => {
+          console.log(res)
+        }, error: (err) => {
+          this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+        }, complete: () => {
+          
+        this._route.navigateByUrl('/dashboard/manager/tasks')
+          this._helperService.openSnackBar("Task has been updated Successfully");
+        }
+      });
+    }
 
 
   getAllProject() {

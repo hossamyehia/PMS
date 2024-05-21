@@ -10,7 +10,7 @@
         </a>
         <h2>Add New Task</h2>
       </div>
-      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="p-4">
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmit(taskForm)" class="p-4">
         <mat-card class=" p-3">
           <mat-card-content>
             <!--title-->

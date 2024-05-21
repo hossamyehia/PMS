@@ -6,7 +6,7 @@ import { DisplayTaskComponent } from './components/display-task/display-task.com
 const routes: Routes = [{ path: '', component: TaskesComponent },
 { path: 'add', component: DisplayTaskComponent},
 { path: 'edit/:id', component: DisplayTaskComponent},
-{ path: 'view/:id/:mood', component: DisplayTaskComponent},
+{ path: 'view/:id/:mode', component: DisplayTaskComponent},
 ];
 
 @NgModule({
