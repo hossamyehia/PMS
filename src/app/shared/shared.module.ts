@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +41,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatDialogModule,
     RouterModule,
-    TableModule
+    TableModule,
+
   ],
   exports:[
     CommonModule,
@@ -59,7 +61,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NavbarComponent,
     SidebarComponent,
     RouterModule,
-    TableModule
+    TableModule,
   ],
 })
 export class SharedModule { }
