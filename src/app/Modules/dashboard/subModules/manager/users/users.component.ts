@@ -7,6 +7,7 @@ import { iUserResponse } from './models/iUserResponse.model';
 import { iSearchableUser } from './models/iSearchableUser.model';
 import { UserService } from './services/user.service';
 import { IUserModel } from './models';
+import { BlockedUserComponent } from './components/blocked-user/blocked-user.component';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +22,7 @@ export class UsersComponent implements OnInit {
   SearchValue: string = '';
   searchBy: "userName"| "email" | "country" | '' = ''
   groupsID: string = '';
+  userItem: string ="";
 
   //pagination
   pagination: iPage = {
@@ -79,18 +81,22 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  toggleStatus(id: number){
-    this._UserService.onToggleActivation(id).subscribe({
-      next: (res: any) => {
-        this._helperSerivce.openSnackBar("Operation Success")
-      }, error: (err: iErrorResponse) => {
-        this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
-      },
-      complete: ()=>{
+  ///
+  openDialog(userData:any): void {
+    const dialogRef = this.dialog.open(BlockedUserComponent, {
+      data: userData,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed');
+      console.log(result);
+      
+      if(result){
         this.getAllUsers();
       }
-    })
+    });
   }
+///
+
 
   //for paginaton 
   changePage(e: PageEvent) {
