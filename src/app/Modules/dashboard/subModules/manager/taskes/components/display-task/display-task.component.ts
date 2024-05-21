@@ -125,7 +125,7 @@ export class DisplayTaskComponent {
       this.onEdit(this.id, data.value);
     }
     else {
-      /// add new recipe 
+      /// add new task 
       this.onAdd(data.value);
     }
   }
