@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { iPage, HelperService, iErrorResponse } from 'src/app/core';
+import { IPage, HelperService, IErrorResponse } from 'src/app/core';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
-import { iSearchableTask } from '../../../shared/tasks/models/iSearchableTask.model';
 import { TasksService } from '../../../shared/tasks/services/tasks.service';
-import { iTaskResponse } from '../../../shared/tasks/models/iTaskResponse.model';
-import { iTask } from '../../../shared/tasks/models';
+import { ITask } from '../../../shared/tasks/models';
+import { ISearchableTask } from '../../../shared/tasks/models/iSearchableTask.model';
+import { ITaskResponse } from '../../../shared/tasks/models/iTaskResponse.model';
 
 
 
@@ -19,18 +19,18 @@ import { iTask } from '../../../shared/tasks/models';
 export class TaskesComponent {
 
   //vars
-  listOfTasks:iTask[] =[];
+  listOfTasks:ITask[] =[];
   StatusChanged:string ='';
   SearchValue :string = '';
   //pagination
-  pagination: iPage = {
+  pagination: IPage = {
     pageSize: 10,
     pageNumber: 1,
     totalNumberOfRecords: 0,
     totalNumberOfPages: 0,
   }
 
-  params: iSearchableTask = {
+  params: ISearchableTask = {
     title: "",
     status: '',
     pageSize: this.pagination.pageSize,
@@ -56,7 +56,7 @@ export class TaskesComponent {
     this.params.title = this.SearchValue;
     this.params.status = this.StatusChanged
     this._TasksService.getAllTasks(this.params).subscribe({
-      next: (res: iTaskResponse) => {
+      next: (res: ITaskResponse) => {
         //console.log(res)
         this.listOfTasks = res.data;
         console.log(this.listOfTasks);
@@ -72,7 +72,7 @@ export class TaskesComponent {
             totalNumberOfPages,
           }
         })(res)
-      }, error: (err: iErrorResponse) => {
+      }, error: (err: IErrorResponse) => {
 
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       }
@@ -110,7 +110,7 @@ export class TaskesComponent {
         console.log(res)
         
       },
-      error: (err : iErrorResponse) => {
+      error: (err : IErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
        },
       complete: () => {

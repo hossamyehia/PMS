@@ -1,13 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { iUserResponse } from '../models/iUserResponse.model';
-import { iSearchableUser } from '../models/iSearchableUser.model';
+import { IUserResponse } from '../models/iUserResponse.model';
+import { ISearchableUser } from '../models/iSearchableUser.model';
 import { Observable } from 'rxjs';
 
 import { IUserModel } from '../models';
 
 
-interface iParams extends iSearchableUser, HttpParams{}
+interface IParams extends ISearchableUser, HttpParams{}
 
 
 @Injectable({
@@ -17,8 +17,8 @@ export class UserService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  getAllUsers(params: iSearchableUser): Observable<iUserResponse>{
-    return this._httpClient.get<iUserResponse>('Users/', {params: (params as iParams)});
+  getAllUsers(params: ISearchableUser): Observable<IUserResponse>{
+    return this._httpClient.get<IUserResponse>('Users/', {params: (params as IParams)});
   }
 
   getUserById(id: number): Observable<IUserModel>{

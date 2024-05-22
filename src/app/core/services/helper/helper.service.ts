@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { iErrorResponse } from '../../models';
+import { IErrorResponse } from '../../models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class HelperService {
     return attr? attr : null;
   }
 
-  getErrorMessage(err: iErrorResponse): string{
+  getErrorMessage(err: IErrorResponse): string{
     const errors = err.error.additionalInfo.errors;
     if(errors){
       let message = "";

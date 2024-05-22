@@ -1,6 +1,6 @@
-import { iPage } from "src/app/core";
+import { IPage } from "src/app/core";
 
-export interface iSearchableTask extends iPage{
+export interface ISearchableTask extends IPage{
     title: string;
     status:string;
 }

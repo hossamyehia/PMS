@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HelperService, iErrorResponse } from 'src/app/core';
+import { HelperService, IErrorResponse,  } from 'src/app/core';
 import { Router } from '@angular/router';
 
 
@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
         next: (res) => {
           this._helperService.openSnackBar(res.message);
         },
-        error: (err: iErrorResponse) => {
+        error: (err: IErrorResponse) => {
           this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
         },
         complete: ()=>{

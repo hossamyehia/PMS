@@ -1,4 +1,4 @@
-import { iUser } from "../../../model/iUser.model";
+import { IUser } from "../../../model/iUser.model";
 
-export interface iManager extends iUser {
+export interface IManager extends IUser {
 }

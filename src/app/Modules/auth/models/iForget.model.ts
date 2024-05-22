@@ -1,3 +1,3 @@
-export interface iForget{
+export interface IForget{
     email: string
 }

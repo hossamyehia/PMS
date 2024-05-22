@@ -1,9 +1,9 @@
-import { iPage } from "src/app/core";
+import { IPage } from "src/app/core";
 import { IUserModel } from "./iUser.model";
 
 
 
 
-export interface iUserResponse extends iPage{
+export interface IUserResponse extends IPage{
     data: IUserModel[];
 }

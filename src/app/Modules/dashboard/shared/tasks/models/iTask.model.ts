@@ -1,13 +1,13 @@
-import { iEmployee } from "../../../subModules/employee/model/iEmployee.model";
-import { iProject } from "../../projects/models";
+import { IEmployee } from "../../../subModules/employee/model/iEmployee.model";
+import { IProject } from "../../projects/models";
 
-export interface iTask {
+export interface ITask {
     id: number,
     title: string,
     status: string,
     description: string, 
     creationDate: Date,
     modificationDate: Date,
-    employee?: iEmployee,
-    project?: iProject
+    employee?: IEmployee,
+    project?: IProject
 }

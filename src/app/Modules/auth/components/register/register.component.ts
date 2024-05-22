@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/core/services/helper/helper.service';
-import { iErrorResponse } from 'src/app/core';
-import { iResetResponse } from '../../models';
+import { IErrorResponse } from 'src/app/core';
+import { IResetResponse } from '../../models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -80,7 +80,7 @@ export class RegisterComponent {
         next: (res: any) => {
           this._helperSerivce.openSnackBar(res.message);
         },
-        error: (err: iErrorResponse) => {
+        error: (err: IErrorResponse) => {
           this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
         }, complete:()=>{
           this._router.navigate(["/auth/verify"], {queryParams: {email: data.get("email")}});

@@ -1,9 +1,9 @@
 import { HttpHeaders } from "@angular/common/http";
-import { iError } from "./iError.model";
+import { IError } from "./iError.model";
 
-export interface iErrorResponse{
+export interface IErrorResponse{
     headers?: HttpHeaders;
-    error: iError;
+    error: IError;
     message?: string;
     name?: string;
     ok?: boolean;

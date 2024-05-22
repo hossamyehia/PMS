@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HelperService, iErrorResponse } from 'src/app/core';
+import { HelperService, IErrorResponse } from 'src/app/core';
 
 @Component({
   selector: 'app-verify',
@@ -37,7 +37,7 @@ export class VerifyComponent implements OnInit {
         next: (res: any) => {
           this._helperService.openSnackBar(res.message);
         },
-        error: (err: iErrorResponse) => {
+        error: (err: IErrorResponse) => {
           this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
         }, 
         complete: () => {
