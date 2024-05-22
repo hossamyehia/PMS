@@ -24,7 +24,7 @@ export class BlockedUserComponent {
   toggleStatus(id: number){
     this._UserService.onToggleActivation(id).subscribe({
       next: (res: any) => {
-        this._HelperService.openSnackBar("Operation Success")
+        this._HelperService.openSnackBar("Done Successfully")
       }, error: (err: iErrorResponse) => {
         this._HelperService.openSnackBar(this._HelperService.getErrorMessage(err));
       },
