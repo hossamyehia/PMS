@@ -15,4 +15,9 @@ th{
    }
    
 
+}
+.mat-mdc-menu-item{
+    .mat-mdc-menu-item-text{
+        display: flex !important;
     }
+}

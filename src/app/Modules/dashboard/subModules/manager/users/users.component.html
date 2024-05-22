@@ -197,10 +197,10 @@
                         <mat-icon>visibility</mat-icon>
                         <span>View</span>
                       </button>
-                      <button (click)="openDialog(element)"  mat-menu-item>
-                        <ng-container *ngIf="element.isActivated">
-                          <mat-icon>block</mat-icon>
-                          <span>Block</span>
+                      <button (click)="openDialog(element)"  mat-menu-item >
+                        <ng-container *ngIf="element.isActivated" class="d-flex">
+                          <mat-icon >block</mat-icon>
+                          <span >Block</span>
                         </ng-container>
                         <ng-container *ngIf="!element.isActivated">
                           <mat-icon>check_circle</mat-icon>
