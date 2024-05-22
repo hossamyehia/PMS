@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { iUser } from 'src/app/Modules/dashboard/model/iUser.model';
-import { HelperService, iErrorResponse } from 'src/app/core';
+import { IUser } from 'src/app/Modules/dashboard/model/iUser.model';
+
+import { HelperService, IErrorResponse } from 'src/app/core';
 import { UserService } from '../../services/user.service';
 
 
@@ -15,7 +16,7 @@ export class BlockedUserComponent {
   // _UserService: any;
   _helperService: any;
   userItem:string ='';
-  userData:iUser | any;
+  userData:IUser | any;
   constructor(private _UserService:UserService,private _HelperService:HelperService,public dialog: MatDialog, 
     @Inject(MAT_DIALOG_DATA) public data:any){}
 
@@ -25,7 +26,7 @@ export class BlockedUserComponent {
     this._UserService.onToggleActivation(id).subscribe({
       next: (res: any) => {
         this._HelperService.openSnackBar("Done Successfully")
-      }, error: (err: iErrorResponse) => {
+      }, error: (err: IErrorResponse) => {
         this._HelperService.openSnackBar(this._HelperService.getErrorMessage(err));
       },
       complete: ()=>{
