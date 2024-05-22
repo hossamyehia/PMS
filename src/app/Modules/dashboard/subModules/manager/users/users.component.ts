@@ -87,9 +87,11 @@ export class UsersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        toggleStatus(result.id);
+       this.toggleStatus(result.id);
       }
-   }
+   })
+   
+  }
 
   toggleStatus(id: number){
     this._UserService.onToggleActivation(id).subscribe({
@@ -131,5 +133,5 @@ export class UsersComponent implements OnInit {
       [this.searchBy]: this.SearchValue
     }
   }
+  }
 
-}
