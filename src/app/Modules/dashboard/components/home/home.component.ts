@@ -75,6 +75,9 @@ export class HomeComponent {
   }
 
 
+  checkOfCharts():boolean{
+    return this._TokenService.isManager()
+  }
 
-
+  
 }
