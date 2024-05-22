@@ -5,7 +5,7 @@ export interface iTask {
     id: number,
     title: string,
     status: string,
-    description: string,
+    description: string, 
     creationDate: Date,
     modificationDate: Date,
     employee?: iEmployee,

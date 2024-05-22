@@ -12,6 +12,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 
+
 @NgModule({
   declarations: [
     AppComponent

@@ -38,6 +38,8 @@ export class TasksService {
     return this._httpClient.delete(`Task/${id}`);
   }
 
-
+  getTaskCount():Observable<any>{
+    return this._httpClient.get('Task/count')
+  }
 
 }

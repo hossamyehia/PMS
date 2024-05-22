@@ -28,4 +28,8 @@ export class UserService {
   onToggleActivation(id:number){
     return this._httpClient.put(`Users/${id}`, {});
   }
+
+  getUsersCount():Observable<any>{
+    return this._httpClient.get('Users/count')
+  }
 }
