@@ -7,6 +7,7 @@ import { IUserResponse } from './models/iUserResponse.model';
 import { ISearchableUser } from './models/iSearchableUser.model';
 import { UserService } from './services/user.service';
 import { IUserModel } from './models';
+import { BlockedUserComponent } from './components/blocked-user/blocked-user.component';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +22,7 @@ export class UsersComponent implements OnInit {
   SearchValue: string = '';
   searchBy: "userName"| "email" | "country" | '' = ''
   groupsID: string = '';
+  userItem: string ="";
 
   //pagination
   pagination: IPage = {
@@ -78,6 +80,16 @@ export class UsersComponent implements OnInit {
       }
     })
   }
+  
+  openDialog(userData:any): void {
+    const dialogRef = this.dialog.open(BlockedUserComponent, {
+      data: userData,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        toggleStatus(result.id);
+      }
+   }
 
   toggleStatus(id: number){
     this._UserService.onToggleActivation(id).subscribe({
@@ -89,8 +101,10 @@ export class UsersComponent implements OnInit {
       complete: ()=>{
         this.getAllUsers();
       }
-    })
+    });
   }
+///
+
 
   //for paginaton 
   changePage(e: PageEvent) {

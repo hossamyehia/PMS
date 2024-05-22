@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { IUserResponse } from '../models/iUserResponse.model';
 import { ISearchableUser } from '../models/iSearchableUser.model';
 import { Observable } from 'rxjs';
-
 import { IUserModel } from '../models';
 
 
@@ -25,8 +24,8 @@ export class UserService {
     return this._httpClient.get<IUserModel>(`Users/${id}`);
   }
 
-  onToggleActivation(id:number){
-    return this._httpClient.put(`Users/${id}`, {});
+  onToggleActivation(id:number):Observable<IUserModel>{
+    return this._httpClient.put<IUserModel>(`Users/${id}`, {});
   }
 
   getUsersCount():Observable<any>{
