@@ -1,6 +1,6 @@
-import { iPage } from "src/app/core";
-import { iProject } from "./iProject.model";
+import { IPage } from "src/app/core";
+import { IProject,  } from "./iProject.model";
 
-export interface iProjectResponse extends iPage{
-    data: iProject[];
+export interface IProjectResponse extends IPage{
+    data: IProject[];
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile/profile.service';
-import { HelperService, iErrorResponse } from 'src/app/core';
-import { iUser } from '../../model/iUser.model';
+import { HelperService, IErrorResponse } from 'src/app/core';
+import { IUser } from '../../model/iUser.model';
 
 @Component({
   selector: 'app-profile',
@@ -64,12 +64,12 @@ export class ProfileComponent {
 
   getProfile(){
     this._profileService.getProfile().subscribe({
-      next: (res: iUser) => {
+      next: (res: IUser) => {
         this.profileForm.patchValue(res);
 
         this.imageSrc =  this.BaseUrl + res.imagePath;
       },
-      error: (err: iErrorResponse) => {
+      error: (err: IErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       }
     })
@@ -92,7 +92,7 @@ export class ProfileComponent {
           //console.log(res)
           this._helperSerivce.openSnackBar("Updated Successfully");
         },
-        error: (err: iErrorResponse) => {
+        error: (err: IErrorResponse) => {
           this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
         }
       })

@@ -4,14 +4,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Observable, map, startWith } from 'rxjs';
-import { iUser } from 'src/app/Modules/dashboard/model/iUser.model';
-import { iProject, iProjectResponse, iSearchableProject } from 'src/app/Modules/dashboard/shared/projects/models';
+import { IUser } from 'src/app/Modules/dashboard/model/iUser.model';
+import { IProject, IProjectResponse, ISearchableProject } from 'src/app/Modules/dashboard/shared/projects/models';
 import { ProjectService } from 'src/app/Modules/dashboard/shared/projects/services/project.service';
-import { iTask } from 'src/app/Modules/dashboard/shared/tasks/models';
-import { iTaskData } from 'src/app/Modules/dashboard/shared/tasks/models/ITaskData.model';
+
 import { TasksService } from 'src/app/Modules/dashboard/shared/tasks/services/tasks.service';
 import { HelperService } from 'src/app/core';
-
+import { UserService } from '../../../users/services/user.service';
+import { ITask } from 'src/app/Modules/dashboard/shared/tasks/models';
+import { ITaskData } from 'src/app/Modules/dashboard/shared/tasks/models/ITaskData.model';
 
 
 @Component({
@@ -21,14 +22,14 @@ import { HelperService } from 'src/app/core';
 })
 export class DisplayTaskComponent {
 
-  view!: string ;
-  disabledView =false;
+  view!: string;
+  disabledView = false;
   id!: number;
   //////
-  pageSize =1000 ;
-  pageNumber =1 ;
+  pageSize = 1000;
+  pageNumber = 1;
   //for getting all projects
-  params: iSearchableProject = {
+  params: ISearchableProject = {
     title: "",
     pageSize: this.pageSize,
     pageNumber: this.pageNumber,
@@ -40,29 +41,31 @@ export class DisplayTaskComponent {
     pageNumber: this.pageNumber,
   };///////data 
 
-  Projectsdata:iProject[] =[];
-  UsersData:iUser[]=[];
+  Projectsdata: IProject[] = [];
+  UsersData: IUser[] = [];
   ///for updating task
-  updatingTaskData!:iTask;
-///form 
+  updatingTaskData!: ITask;
+  ///form 
   taskForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    employeeId :new FormControl('', [Validators.required]),
-    projectId :new FormControl('', [Validators.required]),
+    employeeId: new FormControl('', [Validators.required]),
+    projectId: new FormControl('', [Validators.required]),
   });
-//auto complete project 
+  //auto complete project 
 
- 
+
 
 
   constructor(
-    private _ProjectService: ProjectService,private _TasksService:TasksService,
+    private _ProjectService: ProjectService,
+    private _TasksService: TasksService,
+    private _UserService: UserService,
     private _route: Router,
-    private _helperService: HelperService ,private _ActivatedRoute: ActivatedRoute
-  ) { 
+    private _helperService: HelperService, private _ActivatedRoute: ActivatedRoute
+  ) {
     this.id = this._ActivatedRoute.snapshot.params['id'];
-    this.view =this._ActivatedRoute.snapshot.params['mood']
+    this.view = this._ActivatedRoute.snapshot.params['mode']
     //console.log(this.view)
     if (this.id) {
       //edit 
@@ -70,8 +73,8 @@ export class DisplayTaskComponent {
 
     }
     // to remove save button in view mode and disable the fields 
-    if(this.view){
-     this.disabledView=true
+    if (this.view) {
+      this.disabledView = true
     }
 
   }
@@ -81,7 +84,7 @@ export class DisplayTaskComponent {
     this.getAllUsers();
     //
 
-   
+
   }
 
 
@@ -96,17 +99,17 @@ export class DisplayTaskComponent {
       },
       error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-        
+
       },
       complete: () => {
-      //patching values
-      this.taskForm.patchValue({
-        title: this.updatingTaskData.title,
-        description: this.updatingTaskData.description,
-        employeeId: this.updatingTaskData.employee?.id,
-        projectId: this.updatingTaskData.project?.id,
-      });
-       
+        //patching values
+        this.taskForm.patchValue({
+          title: this.updatingTaskData.title,
+          description: this.updatingTaskData.description,
+          employeeId: this.updatingTaskData.employee?.id,
+          projectId: this.updatingTaskData.project?.id,
+        });
+
       }
 
     });
@@ -128,11 +131,11 @@ export class DisplayTaskComponent {
     }
   }
 
-  onAdd(data:iTaskData): void {
+  onAdd(data:ITaskData): void {
    
       this._TasksService.onAddTask(data).subscribe( {
         next: (res) => {
-         
+        console.log(res)
       }, error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
   
@@ -144,39 +147,39 @@ export class DisplayTaskComponent {
     
   }
 
-  onEdit( id:number , tasksData: iTaskData ) {
+  onEdit( id:number , tasksData: ITaskData ) {
       this._TasksService.onEditTask(id , tasksData ).subscribe({
         next: (res) => {
-       console.log(res);
+          console.log(res)
         }, error: (err) => {
           this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
         }, complete: () => {
-          this._helperService.openSnackBar("Task has been updated Successfully");
-          this._route.navigateByUrl('/dashboard/manager/tasks');
           
+        this._route.navigateByUrl('/dashboard/manager/tasks')
+          this._helperService.openSnackBar("Task has been updated Successfully");
         }
       });
     }
-  
+
 
   getAllProject() {
-    
-     this._ProjectService.getAllProjects(this.params).subscribe({
-      next: (res: iProjectResponse) => {
+
+    this._ProjectService.getAllProjects(this.params).subscribe({
+      next: (res: IProjectResponse) => {
         //console.log(res)
         this.Projectsdata = res.data;
       }
-     });
-  } 
+    });
+  }
   //need to be edited
-  getAllUsers(){
-    this._TasksService.getAllUsers(this.userParams).subscribe({
+  getAllUsers() {
+    this._UserService.getAllUsers(this.userParams).subscribe({
       next: (res: any) => {
         //console.log(res)
         this.UsersData = res.data;
       }
-     });
-  } 
-  
-    
+    });
+  }
+
+
 }

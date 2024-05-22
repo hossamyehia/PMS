@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { HelperService, iErrorResponse, iPage } from 'src/app/core';
+import { HelperService, IErrorResponse, IPage } from 'src/app/core';
 import Table from 'src/app/shared/table/model/table.model';
-import { iProjectResponse, iSearchableProject } from '../../../shared/projects/models';
+import { IProjectResponse, ISearchableProject } from '../../../shared/projects/models';
 import { ProjectService } from '../../../shared/projects/services/project.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -53,14 +53,14 @@ export class ProjectsComponent {
     operators: []
   };
 
-  pagination: iPage = {
+  pagination: IPage = {
     pageSize: 10,
     pageNumber: 1,
     totalNumberOfRecords: 0,
     totalNumberOfPages: 0,
   }
 
-  params: iSearchableProject = {
+  params: ISearchableProject = {
     title: "",
     pageSize: this.pagination.pageSize,
     pageNumber: this.pagination.pageNumber,
@@ -78,7 +78,7 @@ export class ProjectsComponent {
 
   getProjects() {
     this._projectService.getProjectsByEmployee(this.params).subscribe({
-      next: (res: iProjectResponse) => {
+      next: (res: IProjectResponse) => {
         //console.log(res)
         this.table.data = res.data;
         this.pagination = (({ pageSize,
@@ -92,7 +92,7 @@ export class ProjectsComponent {
             totalNumberOfPages,
           }
         })(res)
-      }, error: (err: iErrorResponse) => {
+      }, error: (err: IErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       }
     })

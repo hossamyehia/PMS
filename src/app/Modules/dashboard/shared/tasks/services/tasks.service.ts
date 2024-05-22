@@ -1,15 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ITask } from '../models';
+import { ITaskData } from '../models/ITaskData.model';
+import { ISearchableTask } from '../models/iSearchableTask.model';
+import { ITaskResponse } from '../models/iTaskResponse.model';
 
 
-import { iTaskResponse } from '../models/iTaskResponse.model';
-import { iTask } from '../models';
-import { iSearchableTask } from '../models/iSearchableTask.model';
 
 
 
-interface iParams extends iSearchableTask, HttpParams{}
+
+
+interface iParams extends ISearchableTask, HttpParams{}
 
 @Injectable({
   providedIn: 'root'
@@ -18,30 +21,27 @@ export class TasksService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  getAllTasks(params: iSearchableTask): Observable<iTaskResponse>{
-    return this._httpClient.get<iTaskResponse>('Task/manager', {params: (params as iParams)});
+  getAllTasks(params: ISearchableTask): Observable<ITaskResponse>{
+    return this._httpClient.get<ITaskResponse>('Task/manager', {params: (params as iParams)});
   }
 
-  getTaskById(id: number): Observable<iTask>{
-    return this._httpClient.get<iTask>(`Task/${id}`);
+  getTaskById(id: number): Observable<ITask>{
+    return this._httpClient.get<ITask>(`Task/${id}`);
   }
 
-  onAddTask(data: any): Observable<iTask>{
-    return this._httpClient.post<iTask>('Task', data);
+  onAddTask(data: ITaskData): Observable<ITask>{
+    return this._httpClient.post<ITask>('Task', data);
   }
 
-  onEditTask(id:number, data: any): Observable<iTask>{
-    return this._httpClient.put<iTask>(`Task/${id}`, data);
+  onEditTask(id:number, data: ITaskData): Observable<ITask>{
+    return this._httpClient.put<ITask>(`Task/${id}`, data);
   }
-
   onDeleteTask(id:number){
     return this._httpClient.delete(`Task/${id}`);
   }
-  ///////////// get all users and will change it after making user service 
 
-getAllUsers(params:any): Observable<any>{
-    return this._httpClient.get<any>('Users/', {params: params });
-  
-}
+  getTaskCount():Observable<any>{
+    return this._httpClient.get('Task/count')
+  }
 
 }

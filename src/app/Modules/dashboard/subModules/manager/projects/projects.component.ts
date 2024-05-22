@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Table from 'src/app/shared/table/model/table.model';
 import { ProjectService } from '../../../shared/projects/services/project.service';
-import { iSearchableProject } from '../../../shared/projects/models';
-import { HelperService, iErrorResponse, iPage } from 'src/app/core';
-import { iProjectResponse } from '../../../shared/projects/models';
+import { IProjectResponse, ISearchableProject } from '../../../shared/projects/models';
+import { HelperService, IErrorResponse, IPage } from 'src/app/core';
+
 import { PageEvent } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -28,14 +28,14 @@ export class ProjectsComponent implements OnInit {
         headerName: "Description",
       },
       {
-        headerName: "Num Tasks",
+        headerName: "Num tasks",
         valueGetter: (row: any)=>{
           return row.task.length;
         }
       },
       {
         field: "creationDate",
-        headerName: "Created At",
+        headerName: "Creation date",
         valueFormatter: (value: string): string => {
           let pipe = new DatePipe("en")
           return pipe.transform(value, 'fullDate') as string;
@@ -43,15 +43,17 @@ export class ProjectsComponent implements OnInit {
       },
       {
         field: "modificationDate",
-        headerName: "Modified At",
+        headerName: "Modification date",
         valueFormatter: (value: string): string => {
           let pipe = new DatePipe("en")
           return pipe.transform(value, 'fullDate') as string;
         }
       },
+     
     ],
     data: [],
     operators: [
+     
       {
         title: "View",
         icon: 'visibility',
@@ -70,14 +72,14 @@ export class ProjectsComponent implements OnInit {
     ]
   };
 
-  pagination: iPage = {
+  pagination: IPage = {
     pageSize: 10,
     pageNumber: 1,
     totalNumberOfRecords: 0,
     totalNumberOfPages: 0,
   }
 
-  params: iSearchableProject = {
+  params: ISearchableProject = {
     title: "",
     pageSize: this.pagination.pageSize,
     pageNumber: this.pagination.pageNumber,
@@ -95,7 +97,7 @@ export class ProjectsComponent implements OnInit {
 
   getProjects() {
     this._projectService.getProjectsByManager(this.params).subscribe({
-      next: (res: iProjectResponse) => {
+      next: (res: IProjectResponse) => {
         //console.log(res)
         this.table.data = res.data;
         this.pagination = (({ pageSize,
@@ -109,7 +111,7 @@ export class ProjectsComponent implements OnInit {
             totalNumberOfPages,
           }
         })(res)
-      }, error: (err: iErrorResponse) => {
+      }, error: (err: IErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       }
     })
@@ -147,7 +149,7 @@ export class ProjectsComponent implements OnInit {
 
   deleteDialog(row: any) {
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: { id: row.id },
+      data: { id: row.id , name:row.title },
     });
 
     dialogRef.afterClosed().subscribe(result => {

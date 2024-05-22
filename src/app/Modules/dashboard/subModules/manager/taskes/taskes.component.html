@@ -10,17 +10,27 @@
         <mat-card>
           <mat-card-header>
             <!--search-->
-            <mat-form-field class="example-form-field"
-            appearance="outline" class="w-25 me-5">
-            <mat-label><i class="fa fa-search"
-                    aria-hidden="true"></i> Search</mat-label>
-            <input matInput type="text" 
-            [(ngModel)]="SearchValue" (keyup.enter)="getAllTasks()">
-            <button *ngIf="SearchValue" matSuffix mat-icon-button
-                aria-label="Clear"
-                (click)="resetSearcgInput()">
-                <mat-icon>close</mat-icon>
-            </button>
+        <mat-form-field appearance="outline" class="w-25 me-5">
+          <button mat-icon-button matPrefix>
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Search"
+            [(ngModel)]="SearchValue"
+            (keyup.enter)="getAllTasks()"
+          />
+          <button
+          *ngIf="SearchValue"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="resetSearcgInput()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
             <!--filter-->
             <mat-form-field appearance="outline" class="w-25">
@@ -58,7 +68,7 @@
               </ng-container>
               <!--CreationDate-->
               <ng-container matColumnDef="CreationDate">
-                  <th mat-header-cell *matHeaderCellDef> CreationDate </th>
+                  <th mat-header-cell *matHeaderCellDef> Creation date </th>
                
                 </ng-container>
                 <!--action-->
@@ -92,7 +102,17 @@
                 <th mat-header-cell *matHeaderCellDef> Status </th>
                 <td mat-cell *matCellDef="let element">
                   <span [class]="element.status" class="status">
-                      {{element.status}}
+                     
+                      <span  *ngIf="element.status === 'ToDo'">
+                         To do
+                      </span>
+                      <span  *ngIf="element.status === 'InProgress'">
+                        In progress
+                     </span>
+                     <span  *ngIf="element.status === 'Done'">
+                    Done
+                   </span>
+
                   </span>
                   </td>
               </ng-container>
@@ -110,8 +130,8 @@
               </ng-container>
               <!--CreationDate-->
               <ng-container matColumnDef="CreationDate">
-                  <th mat-header-cell *matHeaderCellDef> CreationDate </th>
-                  <td mat-cell *matCellDef="let element"> {{element.creationDate|date}} </td>
+                  <th mat-header-cell *matHeaderCellDef> Creation date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.creationDate| date:'fullDate'}} </td>
                 </ng-container>
                 <!--action-->
                 <ng-container matColumnDef="Action">
@@ -129,11 +149,11 @@
                               <span>View</span>
                           </button>
                           <button mat-menu-item    [routerLink]="['/dashboard/manager/tasks/edit/',element.id]">
-                              <mat-icon>edit_note</mat-icon>
-                              <span>Update</span>
+                              <mat-icon>edit_square</mat-icon>
+                              <span>Edit</span>
                           </button>
                           <button mat-menu-item  
-                           (click)="openDeleteDialog(element.id)">
+                           (click)="openDeleteDialog(element.id,element.title)">
                              
                               <mat-icon>delete</mat-icon>
                               <span>Delete</span>

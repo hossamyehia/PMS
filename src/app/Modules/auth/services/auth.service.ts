@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { iForget, iLogin, iReset, iResetResponse, iVerify } from '../models';
+import { IForget, ILogin, IReset, IResetResponse, IVerify } from '../models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  login(data: iLogin){
+  login(data: ILogin){
     return this._httpClient.post("Users/Login", data);
   }
 
@@ -18,15 +18,15 @@ export class AuthService {
     return this._httpClient.post("Users/Register", data);
   }
 
-  verify(data: iVerify){
+  verify(data: IVerify):Observable<any>{
     return this._httpClient.put("Users/verify", data);
   }
 
-  onForget( data: iForget): Observable<any>{
+  onForget( data: IForget): Observable<any>{
     return this._httpClient.post("Users/Reset/Request", data);
   }
 
-  onReset(data: iReset): Observable<any>{
+  onReset(data: IReset): Observable<any>{
     return this._httpClient.post("Users/Reset", data);
   }
 

@@ -1,0 +1,60 @@
+<section>
+    <div>
+        <div class="section-header">
+            <h2>Task Board</h2>
+        </div>
+        <div class="p-4">
+            <mat-card>
+                <mat-card-content>
+                    <div cdkDropListGroup class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>To do</h2>
+                                <div cdkDropList
+                                    (cdkDropListDropped)='onDrop($event ,"ToDo")'
+                                    class="task-container">
+                                    <div class="task"
+                                        *ngFor="let item of filterTasks('ToDo')"
+                                        (cdkDragStarted)="onDrag(item)"
+                                        cdkDrag>{{item.title}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                                <h2>In Progress</h2>
+
+                                <div class="task-container"
+                                    cdkDropList
+                                    (cdkDropListDropped)='onDrop($event ,"InProgress")'>
+
+                                    <div class="task"
+                                        *ngFor='let item of filterTasks("InProgress")'
+                                        (cdkDragStarted)="onDrag(item)"
+                                        cdkDrag>{{item.title}}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                                <h2>Done</h2>
+
+                                <div
+                                    cdkDropList
+                                    class="task-container"
+                                    (cdkDropListDropped)='onDrop($event ,"Done")'>
+                                    <div class="task"
+                                        *ngFor='let item of filterTasks("Done")'
+                                        (cdkDragStarted)="onDrag(item)"
+                                        cdkDrag>{{item.title}}</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</section>

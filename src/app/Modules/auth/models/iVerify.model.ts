@@ -1,4 +1,4 @@
-export interface iVerify{
+export interface IVerify{
     email: string,
     code: string
 }

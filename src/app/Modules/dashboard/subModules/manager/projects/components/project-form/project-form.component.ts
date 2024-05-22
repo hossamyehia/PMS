@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { iProject } from 'src/app/Modules/dashboard/shared/projects/models';
+import { IProject } from 'src/app/Modules/dashboard/shared/projects/models';
 import { ProjectService } from 'src/app/Modules/dashboard/shared/projects/services/project.service';
 import { HelperService } from 'src/app/core';
 
@@ -20,7 +20,7 @@ export class ProjectFormComponent {
     description: new FormControl('', [Validators.required])
   })
 
-  project!: iProject;
+  project!: IProject;
 
 
   constructor(
@@ -49,7 +49,7 @@ export class ProjectFormComponent {
     }
   }
 
-  onAdd(data: iProject): void {
+  onAdd(data: IProject): void {
     this._ProjectService.onAddProject(data).subscribe({
       next: (res) => {
         this._helperService.openSnackBar("Added Successfully")
@@ -62,7 +62,7 @@ export class ProjectFormComponent {
     })
   }
 
-  onEdit(data: iProject): void {
+  onEdit(data: IProject): void {
     this._ProjectService.onEditProject(this.id, data).subscribe({
       next: (res) => {
         this._helperService.openSnackBar("Updated Successfully")

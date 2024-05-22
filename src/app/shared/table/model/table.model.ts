@@ -1,9 +1,9 @@
-import { defaultColConf, TableOperator, tableColDef } from "./";
+import { DefaultColConf, TableOperator, TableColDef } from "./";
 
 interface Table{
-    colDefs: tableColDef[];
+    colDefs:TableColDef[];
     data: any[];
     operators:  TableOperator[];
-    defaultColConf?: defaultColConf;
+    defaultColConf?: DefaultColConf;
 }
 export default Table;

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { iPage, HelperService, iErrorResponse } from 'src/app/core';
-import { iUserResponse } from './models/iUserResponse.model';
-import { iSearchableUser } from './models/iSearchableUser.model';
+import { IPage, HelperService, IErrorResponse } from 'src/app/core';
+import { IUserResponse } from './models/iUserResponse.model';
+import { ISearchableUser } from './models/iSearchableUser.model';
 import { UserService } from './services/user.service';
 import { IUserModel } from './models';
 import { BlockedUserComponent } from './components/blocked-user/blocked-user.component';
@@ -25,14 +25,14 @@ export class UsersComponent implements OnInit {
   userItem: string ="";
 
   //pagination
-  pagination: iPage = {
+  pagination: IPage = {
     pageSize: 10,
     pageNumber: 1,
     totalNumberOfRecords: 0,
     totalNumberOfPages: 0,
   }
 
-  params: iSearchableUser = {
+  params: ISearchableUser = {
     userName: "",
     email: "",
     country: "",
@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit {
     };
 
     this._UserService.getAllUsers(this.params).subscribe({
-      next: (res: iUserResponse) => {
+      next: (res: IUserResponse) => {
         this.listOfUsers = res.data;
         this.pagination = (({ pageSize,
           pageNumber,
@@ -75,22 +75,30 @@ export class UsersComponent implements OnInit {
             totalNumberOfPages,
           }
         })(res)
-      }, error: (err: iErrorResponse) => {
+      }, error: (err: IErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       }
     })
   }
-
-  ///
+  
   openDialog(userData:any): void {
     const dialogRef = this.dialog.open(BlockedUserComponent, {
       data: userData,
     });
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
-      console.log(result);
-      
       if(result){
+        toggleStatus(result.id);
+      }
+   }
+
+  toggleStatus(id: number){
+    this._UserService.onToggleActivation(id).subscribe({
+      next: (res: any) => {
+        this._helperSerivce.openSnackBar("Operation Success")
+      }, error: (err: IErrorResponse) => {
+        this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
+      },
+      complete: ()=>{
         this.getAllUsers();
       }
     });

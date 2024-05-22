@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { iResetResponse, iReset } from '../../models/iReset.model';
-import { HelperService, iErrorResponse } from 'src/app/core';
+import { IResetResponse,IReset } from '../../models/iReset.model';
+import { HelperService, IErrorResponse,  } from 'src/app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -57,10 +57,10 @@ export class ResetPasswordComponent {
 
     if (this.resetForm.valid) {
       this._AuthService.onReset(data).subscribe({
-        next: (res: iResetResponse) => {
+        next: (res: IResetResponse) => {
           this._helperSerivce.openSnackBar(res.message);
         },
-        error: (err: iErrorResponse) => {
+        error: (err: IErrorResponse) => {
           this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
         },
         complete: ()=>{

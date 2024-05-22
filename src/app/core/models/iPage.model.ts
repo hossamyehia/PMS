@@ -1,4 +1,4 @@
-export interface iPage{
+export interface IPage{
     pageSize: number,
     pageNumber: Number,
     totalNumberOfRecords?: number,

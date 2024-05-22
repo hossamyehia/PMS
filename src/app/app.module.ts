@@ -8,6 +8,10 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GeneralInterceptor } from './core/interceptors/general/general.interceptor';
 import { CoreModule } from './core/core.module';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -18,14 +22,21 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-    CoreModule
+    CoreModule,
+    HighchartsChartModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: GeneralInterceptor,
       multi: true,
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
