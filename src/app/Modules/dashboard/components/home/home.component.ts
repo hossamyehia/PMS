@@ -20,14 +20,18 @@ export class HomeComponent {
   chart: any;
   tasksCount?: ITaskCount;
   userData?: iUserData
-  userName:string = ''
+  userName:string = '';
+  isEmployeeRole! :boolean;
+  isManagerRole!:boolean;
   constructor(private _TokenService:TokenService, private _TasksService:TasksService,
     private _UserService:UserService){}
 
   ngOnInit(): void {
     this.userName = this._TokenService.getName();
     this.getTasksCount()
-    this.getUserCount()
+    this.getUserCount();
+    this.isEmployee();
+    this.isManager();
   }
 
   getUserCount(){
@@ -75,9 +79,12 @@ export class HomeComponent {
   }
 
 
-  checkOfCharts():boolean{
-    return this._TokenService.isManager()
-  }
-
+ 
+   isEmployee(){
+    this.isEmployeeRole = this._TokenService.isEmployee();
+   }
+   isManager(){
+    this.isManagerRole = this._TokenService.isManager();
+   }
   
 }
