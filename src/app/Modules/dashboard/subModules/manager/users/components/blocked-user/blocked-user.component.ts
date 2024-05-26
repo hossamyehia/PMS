@@ -1,10 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/Modules/dashboard/model/iUser.model';
 
 import { HelperService, IErrorResponse } from 'src/app/core';
 import { UserService } from '../../services/user.service';
+import { IUserModel } from '../../models/iUser.model';
 
 
 @Component({
@@ -17,37 +18,13 @@ export class BlockedUserComponent {
   _helperService: any;
   userItem:string ='';
   userData:IUser | any;
-  constructor(private _UserService:UserService,private _HelperService:HelperService,public dialog: MatDialog, 
-    @Inject(MAT_DIALOG_DATA) public data:any){}
+  constructor(
+    public dialogRef: MatDialogRef<BlockedUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: IUserModel,
+  ) {}
 
-
-    
-  toggleStatus(id: number){
-    this._UserService.onToggleActivation(id).subscribe({
-      next: (res: any) => {
-        this._HelperService.openSnackBar("Done Successfully")
-      }, error: (err: IErrorResponse) => {
-        this._HelperService.openSnackBar(this._HelperService.getErrorMessage(err));
-      },
-      complete: ()=>{
-        this.getAllUsers();
-      }
-    })
-  }
-  getAllUsers() {
-    throw new Error('Method not implemented.');
-  }
-
-  
-  getUserById(id: number){
-    this._UserService.getUserById(id).subscribe({
-      next: (res) => {
-        this.userData = res;
-        console.log(res);
-
-      }
-
-    });
+  onNoClick(): void {
+    this.dialogRef.close();
   }
   
 }
