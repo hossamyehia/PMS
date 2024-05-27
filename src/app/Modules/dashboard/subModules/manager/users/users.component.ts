@@ -8,6 +8,7 @@ import { ISearchableUser } from './models/iSearchableUser.model';
 import { UserService } from './services/user.service';
 import { IUserModel } from './models';
 import { BlockedUserComponent } from './components/blocked-user/blocked-user.component';
+import { iUserData } from './models/IUserData.model';
 
 @Component({
   selector: 'app-users',
@@ -81,13 +82,15 @@ export class UsersComponent implements OnInit {
     })
   }
   
-  openDialog(userData:any): void {
+  openBlcockDialog( userData:IUserModel): void {
     const dialogRef = this.dialog.open(BlockedUserComponent, {
       data: userData,
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+    
        this.toggleStatus(result.id);
+      
       }
    })
    
@@ -95,12 +98,12 @@ export class UsersComponent implements OnInit {
 
   toggleStatus(id: number){
     this._UserService.onToggleActivation(id).subscribe({
-      next: (res: any) => {
-        this._helperSerivce.openSnackBar("Operation Success")
+      next: (res: any) => {   
       }, error: (err: IErrorResponse) => {
         this._helperSerivce.openSnackBar(this._helperSerivce.getErrorMessage(err));
       },
       complete: ()=>{
+        this._helperSerivce.openSnackBar('Status has been changed ')
         this.getAllUsers();
       }
     });

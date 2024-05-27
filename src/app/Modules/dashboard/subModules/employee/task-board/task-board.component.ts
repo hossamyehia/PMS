@@ -31,7 +31,8 @@ export class TaskBoardComponent implements OnInit {
   getAlltasksForUser(){
     this._TaskBoardService.getAllTaskForUser().subscribe({
       next:(res)=>{
-       this.listOfTasks = res.data
+       this.listOfTasks = res.data;
+       console.log(this.listOfTasks.length)
       },
       error:(err)=>{
       this._HelperService.openSnackBar(err)

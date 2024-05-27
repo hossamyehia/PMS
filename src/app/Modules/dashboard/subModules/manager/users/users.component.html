@@ -195,15 +195,16 @@
                         <mat-icon>visibility</mat-icon>
                         <span>View</span>
                       </button>
-                      <button (click)="openDialog(element)"  mat-menu-item >
-                        <ng-container *ngIf="element.isActivated" class="d-flex">
+                      <button (click)="openBlcockDialog(element)" 
+                       mat-menu-item>
+                        <span *ngIf="element.isActivated"   class="d-flex align-items-center justify-content-between" >
                           <mat-icon >block</mat-icon>
                           <span >Block</span>
-                        </ng-container>
-                        <ng-container *ngIf="!element.isActivated">
+                        </span>
+                        <span *ngIf="!element.isActivated"  class="d-flex align-items-center justify-content-between" >
                           <mat-icon>check_circle</mat-icon>
                           <span>Unblock</span>
-                        </ng-container>
+                        </span>
                       </button>
                     </mat-menu>
                   </td>

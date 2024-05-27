@@ -17,13 +17,17 @@
         </mat-dialog-content>
 
         <mat-dialog-actions class="d-flex justify-content-between mx-2">
-            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
 
             <!-- to Block this user  -->
-            <button *ngIf="data.isActivated" mat-button [mat-dialog-close]="true"  cdkFocusInitial (click)="toggleStatus(data.id)" class="active">Yes</button>
+            <button type="button" *ngIf="data.isActivated" class="btn btn-outline-danger" 
+           
+                   [mat-dialog-close]="data">Block </button>
                        
             <!-- to active this user  -->
-            <button *ngIf="!data.isActivated" mat-button [mat-dialog-close]="true"  cdkFocusInitial (click)="toggleStatus(data.id)" class="notActive">Yes</button>
+            <button type="button" *ngIf="!data.isActivated"
+             class="btn btn-outline-danger" 
+            [mat-dialog-close]="data">Un block </button>
         </mat-dialog-actions>
     </ng-container>
     

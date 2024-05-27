@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/core';
 import { ProfileService } from '../../services/profile/profile.service';
@@ -24,13 +24,24 @@ export class ChangePasswordComponent {
   ) { }
 
   ngOnInit() {
-    const PASSWORD_VALIDATORS = [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$/)];
+    const PASSWORD_VALIDATORS = [Validators.required,
+       Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$/)];
+
     this.changePasswordForm = new FormGroup({
       oldPassword: new FormControl('', PASSWORD_VALIDATORS),
       newPassword: new FormControl('', PASSWORD_VALIDATORS),
       confirmNewPassword: new FormControl('', PASSWORD_VALIDATORS)
-    });
+    },
+  {
+    validators:this.passwordMatchValidator,
+  });
   }
+  passwordMatchValidator(control:AbstractControl){
+return control.get('newPassword')?.value === control.get('confirmNewPassword')?.value ? null :
+{mismatch:true};
+  }
+  
+
 
   changePassword(userData: FormGroup) {
     let data = userData.value;
