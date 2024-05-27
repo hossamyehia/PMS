@@ -1,18 +1,13 @@
 
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Observable, map, startWith } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from 'src/app/Modules/dashboard/model/iUser.model';
-import { IProject, IProjectResponse, ISearchableProject } from 'src/app/Modules/dashboard/shared/projects/models';
-import { ProjectService } from 'src/app/Modules/dashboard/shared/projects/services/project.service';
 
-import { TasksService } from 'src/app/Modules/dashboard/shared/tasks/services/tasks.service';
+import { TasksService, ITask, ITaskData } from 'src/app/Modules/dashboard/shared/tasks';
 import { HelperService } from 'src/app/core';
 import { UserService } from '../../../users/services/user.service';
-import { ITask } from 'src/app/Modules/dashboard/shared/tasks/models';
-import { ITaskData } from 'src/app/Modules/dashboard/shared/tasks/models/ITaskData.model';
+import { ISearchableProject, IProject, ProjectService, IProjectResponse } from 'src/app/Modules/dashboard/shared/projects';
 
 
 @Component({
@@ -52,10 +47,6 @@ export class DisplayTaskComponent {
     employeeId: new FormControl('', [Validators.required]),
     projectId: new FormControl('', [Validators.required]),
   });
-  //auto complete project 
-
-
-
 
   constructor(
     private _ProjectService: ProjectService,
@@ -87,10 +78,7 @@ export class DisplayTaskComponent {
 
   }
 
-
-
   ///get by id 
-
   getTaskById(id: number) {
     this._TasksService.getTaskById(id).subscribe({
       next: (res) => {
@@ -115,55 +103,46 @@ export class DisplayTaskComponent {
     });
   }
 
-
-
-
-  onSubmit(data:FormGroup) {
-    //console.log(data.value)
- 
+  onSubmit(data: FormGroup) {
     if (this.id) {
       // -update  
-      this.onEdit(this.id, data.value);
+      this.onEditTask(this.id, data.value);
     }
     else {
       /// add new task 
-      this.onAdd(data.value);
+      this.onAddTask(data.value);
     }
   }
 
-  onAdd(data:ITaskData): void {
-   
-      this._TasksService.onAddTask(data).subscribe( {
-        next: (res) => {
-        console.log(res)
+  onAddTask(data: ITaskData): void {
+
+    this._TasksService.onAddTask(data).subscribe({
+      next: (res) => {
+        this._helperService.openSnackBar("Task has been added Successfully");
       }, error: (err) => {
         this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-  
+
       }, complete: () => {
-        this._helperService.openSnackBar("Task has been added Successfully");
         this._route.navigateByUrl('/dashboard/manager/tasks')
       }
-      });
-    
+    });
+
   }
 
-  onEdit( id:number , tasksData: ITaskData ) {
-      this._TasksService.onEditTask(id , tasksData ).subscribe({
-        next: (res) => {
-          console.log(res)
-        }, error: (err) => {
-          this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
-        }, complete: () => {
-          
+  onEditTask(id: number, tasksData: ITaskData) {
+    this._TasksService.onEditTask(id, tasksData).subscribe({
+      next: (res) => {
+        this._helperService.openSnackBar("Task has been updated Successfully");
+      }, error: (err) => {
+        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+      }, complete: () => {
         this._route.navigateByUrl('/dashboard/manager/tasks')
-          this._helperService.openSnackBar("Task has been updated Successfully");
-        }
-      });
-    }
+      }
+    });
+  }
 
 
   getAllProject() {
-
     this._ProjectService.getAllProjects(this.params).subscribe({
       next: (res: IProjectResponse) => {
         //console.log(res)
@@ -175,7 +154,6 @@ export class DisplayTaskComponent {
   getAllUsers() {
     this._UserService.getAllUsers(this.userParams).subscribe({
       next: (res: any) => {
-        //console.log(res)
         this.UsersData = res.data;
       }
     });

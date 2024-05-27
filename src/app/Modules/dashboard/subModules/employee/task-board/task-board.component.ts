@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ITask } from '../../../shared/tasks/models';
-import { TaskBoardService } from '../services/task-board.service';
-import { HelperService } from 'src/app/core';
-import { ItaskBoard } from '../model/taskBoard.model';
+import { HelperService, IErrorResponse } from 'src/app/core';
+import { TasksService, ITask, iTaskStatus } from '../../../shared/tasks';
 
 @Component({
   selector: 'app-task-board',
@@ -11,78 +9,64 @@ import { ItaskBoard } from '../model/taskBoard.model';
 })
 export class TaskBoardComponent implements OnInit {
 
-//vars
+  listOfTasks: ITask[] = [];
+  dragedTask: any;
 
-  listOfTasks:ITask[] =[];
-  currentTask :any ;
-
-  constructor(private _TaskBoardService:TaskBoardService ,private _HelperService:HelperService
-
-  ) {}
+  constructor(
+    private _TasksService: TasksService, 
+    private _helperService: HelperService
+  ) { }
 
   //drag and drop
-
   ngOnInit(): void {
-   this.getAlltasksForUser();
+    this.getAlltasksForUser();
   }
 
-
-//get all users 
-  getAlltasksForUser(){
-    this._TaskBoardService.getAllTaskForUser().subscribe({
-      next:(res)=>{
-       this.listOfTasks = res.data;
-       console.log(this.listOfTasks.length)
+  //get all users 
+  getAlltasksForUser() {
+    this._TasksService.getAllTaskForUser({pageSize: 10000, pageNumber: 1}).subscribe({
+      next: (res) => {
+        this.listOfTasks = res.data;
       },
-      error:(err)=>{
-      this._HelperService.openSnackBar(err)
-      },
-      complete:()=>{
-        
-       
-    }  
-  })
-    }
+      error: (err) => {
+        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
+      }
+    })
+  }
   //filter task depend on status
-    filterTasks(status:string){
-     return this.listOfTasks.filter(task => task.status == status)
-    }
+  filterTasks(status: string) {
+    return this.listOfTasks.filter(task => task.status == status)
+  }
 
-    //drag 
-    onDrag(task :any){
-     console.log('drag')
-    this.currentTask = task ;
-    }
-    // drop 
+  //drag 
+  onDrag(task: any) {
+    this.dragedTask = task;
+  }
 
-    onDrop(event:any , statusOfTask:string){
-      //console.log('droped');
-      console.log(event)
-      const dropedTask = this.listOfTasks.find(item => item.id === this.currentTask.id);
-      if(dropedTask != undefined){
-        //update Status
-        dropedTask.status = statusOfTask;
-        //console.log(dropedTask.status);
+  // drop 
+  onDrop(event: any, statusOfTask: string) {
+
+    const dropedTask = this.listOfTasks.find(item => item.id === this.dragedTask.id);
+    if (dropedTask != undefined) {
+      //update Status
+      dropedTask.status = statusOfTask;
 
       //define params  for updating status 
-      let params = {
-        status :statusOfTask
+      let params: iTaskStatus = {
+        status: statusOfTask
       }
-         this.updateTaskStatus(dropedTask.id , params)
+      this.updateTaskStatus(dropedTask.id, params)
+    }
+  }
+  //update status
+  updateTaskStatus(id: number, data: iTaskStatus) {
+    this._TasksService.updateTaskStatus(id, data).subscribe({
+      next: (res) => {
+        this._helperService.openSnackBar("Task status has been updated ")
+      },
+      error: (err: IErrorResponse)=>{
+        this._helperService.openSnackBar(this._helperService.getErrorMessage(err));
       }
-    }
-    //update status
-    
-    updateTaskStatus(id:number , data:ItaskBoard){
-    
-      this._TaskBoardService.updateTaskStatus(id ,data).subscribe({
-        next:(res)=>{
-        console.log(res)
-        },
-        complete:()=>{
-         
-          this._HelperService.openSnackBar("Task status has been updated ")
-        }
-      });
-    }
+    });
+  }
 }

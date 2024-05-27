@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TokenService } from 'src/app/core';
-import { TasksService } from '../../shared/tasks/services/tasks.service';
-import { ITaskCount } from '../../shared/tasks/models/itask-count';
+import { TasksService, ITaskCount } from '../../shared/tasks';
 import Chart from 'chart.js/auto';
 import { UserService } from '../../subModules/manager/users/services/user.service';
 import { iUserData } from '../../subModules/manager/users/models/IUserData.model';

@@ -4,10 +4,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IPage, HelperService, IErrorResponse } from 'src/app/core';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
-import { TasksService } from '../../../shared/tasks/services/tasks.service';
-import { ITask } from '../../../shared/tasks/models';
-import { ISearchableTask } from '../../../shared/tasks/models/iSearchableTask.model';
-import { ITaskResponse } from '../../../shared/tasks/models/iTaskResponse.model';
+import { TasksService, ITask, ISearchableTask, ITaskResponse } from '../../../shared/tasks';
+
 
 
 
