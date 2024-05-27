@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { IResetResponse,IReset } from '../../models/iReset.model';
@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ResetPasswordComponent {
   statusCode: number | null = null;

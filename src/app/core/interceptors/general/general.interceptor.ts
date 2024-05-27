@@ -5,15 +5,18 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, finalize, throwError } from 'rxjs';
 import { TokenService } from '../..';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class GeneralInterceptor implements HttpInterceptor {
 
-  constructor(private _tokenService: TokenService) { }
+  constructor(private _tokenService: TokenService, private _NgxSpinnerService:NgxSpinnerService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+
+    // this._NgxSpinnerService.show()
 
     const token = this._tokenService.getToken();
     const BaseUrl = "https://upskilling-egypt.com:3003/api/v1";
@@ -31,6 +34,9 @@ export class GeneralInterceptor implements HttpInterceptor {
 
     // return next.handle(request)
     return next.handle(request).pipe(
+      // finalize(()=>{
+      //   this._NgxSpinnerService.hide()
+      // }),
       catchError((err) => {
         // if (err.status === 401) {
         //   this._tokenService.logout();

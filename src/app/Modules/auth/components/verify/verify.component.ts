@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,7 +7,8 @@ import { HelperService, IErrorResponse } from 'src/app/core';
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.component.html',
-  styleUrls: ['./verify.component.scss']
+  styleUrls: ['./verify.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class VerifyComponent implements OnInit {
 
