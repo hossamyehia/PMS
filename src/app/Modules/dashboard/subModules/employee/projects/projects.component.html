@@ -33,6 +33,7 @@
           <div class="m-0 overflow-x-auto">
             <app-table [table]="table"></app-table>
             <mat-paginator
+              *ngIf="table.data.length"
               [length]="pagination.totalNumberOfRecords"
               [pageSize]="pagination.pageSize"
               [pageSizeOptions]="[5, 10, 25, 100]"

@@ -4,7 +4,7 @@
       <th *ngFor="let header of table.colDefs" class="fluid-padding">
         {{ header.headerName || header.field }}
       </th>
-      <th class="fluid-padding" *ngIf="table.operators && table.operators.length"></th>
+      <th class="fluid-padding" *ngIf="table.operators && table.operators.length">Actions</th>
     </tr>
   </thead>
   <tbody class="tableBody">
