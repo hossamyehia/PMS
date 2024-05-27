@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/core/services/helper/helper.service';
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent {
 
